@@ -6,6 +6,43 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+  <script>
+    // https://qiita.com/shogo82148/items/548a6c9904eb19269f8c
+    const language = (window.navigator.languages && window.navigator.languages[0]) ||
+        window.navigator.language ||
+        window.navigator.userLanguage ||
+        window.navigator.browserLanguage;
+
+    const resources = {
+      common: {
+      },
+      en: {
+      },
+      ja: {
+      },
+    };
+
+    const age = ((y, m, d) => {
+      const format = (date) => {
+        const f = (n, length) => n.toString().padStart(length, '0');
+
+        const year = f(date.getFullYear(), 4);
+        const month = f(date.getMonth() + 1, 2);
+        const day = f(date.getDate(), 2);
+        return year + month + day;
+      }
+
+      const birthday = format(new Date(y, m - 1, d));
+      const today = format(new Date());
+
+      return Math.floor(new Number(today) - new Number(birthday));
+    })(1990, 12, 21);
+  </script>
+  <style type="text/css">
+    .ui.container {
+      margin-top: 3em;
+    }
+  </style>
 </head>
 <body>
 </body>
