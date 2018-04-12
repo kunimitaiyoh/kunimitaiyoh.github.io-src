@@ -26,6 +26,11 @@ define((require) => {
                 r: resources.get(env.language),
                 errors: [],
             },
+            methods: {
+                testLang: function(lang) {
+                    return lang === env.language;
+                },
+            },
             mounted: function () {
             },
         });
