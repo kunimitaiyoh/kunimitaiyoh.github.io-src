@@ -8,28 +8,28 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script data-main="js/main.js" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.min.js"></script>
-  <script>
-    // document.addEventListener("DOMContentLoaded", function (event) {
-    //   require(['js/main'], function (main) {
-    //     main.run();
-    //   });
-    // });
-  </script>
   <style type="text/css">
     .ui.container {
       margin-top: 3em;
     }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+
+    .fade-enter, .fade-leave {
+      opacity: 0
+    }
   </style>
 </head>
 <body>
-  <div id="app" class="ui container" style="display: none" :style="{ display: 'block' }">
+  <div id="app" class="ui container" style="opacity: 0.0">
     <div class="ui negative message" v-if="errors.length > 0">
       <div class="header">Errors</div>
       <ul class="list" v-for="error in errors">
         <li>{{ error }}</li>
       </ul>
     </div>
-
     <h1 class="ui dividing header">Profile: KUNIMI Taiyoh</h1>
     <img class="ui medium rounded image" src="portrait_2244x2244.jpg" alt="portrait" width="300" height="300">
 

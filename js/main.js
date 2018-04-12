@@ -6,17 +6,14 @@ const environment = {
             window.navigator.browserLanguage
 };
 
-// define(function() {
-//     return {
-//         run: function() {
-//             require(['js/app'], function(app) {
-//                 app.run();
-//             });
-//         }
-//     };
-// });
-
-
 require(['app'], function (app) {
     app.run();
+
+    // #app のマウントが終了するまでの間、テンプレートのフォーマットが裸で表示されるので、
+    // 最初は #app の不透明度を 0.0 にしておき、マウントが終了したら不透明度を 1.0 にする。
+    $(function() {
+        $('#app').animate({
+            opacity: 1.0,
+        }, 0);
+    });
 });
