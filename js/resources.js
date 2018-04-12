@@ -1,16 +1,27 @@
 const data = {
     common: {
+        email: "kunimi.taiyoh@gmail.com",
     },
     translations: {
         en: {
             head: "Profile: KUNIMI Taiyoh",
+            name: "KUNIMI Taiyoh",
+            nameLatin: null,
+            birthday: "December 21, 1990",
+            location: "Yokohama, Japan",
             careers: "Careers",
             skills: "Skills",
+            contacts: "Contacts",
         },
         ja: {
             head: "プロフィール: 國見 太陽",
+            name: "國見 太陽",
+            nameLatin: "KUNIMI Taiyoh",
+            birthday: "1990/12/21",
+            location: "横浜",
             careers: "経歴",
-            skills: "スキル"
+            skills: "スキル",
+            contacts: "連絡先",
         },
     }
 };
@@ -39,7 +50,8 @@ const errors = validate(data);
 const resources = {
     get: function(lang) {
         return function (key) {
-            const target = (lang in data.translations) ? data.translations[lang] : data.common;
+            const language = lang in data.translations ? lang : "en";
+            const target = (key in data.translations[language]) ? data.translations[language] : data.common;
             if (key in target)
                 return target[key];
             else
