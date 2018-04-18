@@ -14,7 +14,7 @@ define((require) => {
                 digestContent: "ウェブアプリケーション、デスクトップアプリケーション、スマートフォンアプリケーションなどを開発するプログラマーです。",
                 workExperience: "経歴",
                 skills: "スキル",
-                contacts: "連絡先",
+                myAccounts: "アカウント",
                 education: "学歴",
                 univ: "東京経済大学 経済学部卒業",
                 dbs: "データベーススペシャリスト試験",
@@ -29,7 +29,7 @@ define((require) => {
                 digestContent: "A software engineer who develops web applications, desktop application, smart phone applications and so on.",
                 workExperience: "Work Experience",
                 skills: "Skills",
-                contacts: "Contacts",
+                myAccounts: "My Accounts",
                 education: "Education",
                 univ: "Tokyo Keizai University, Tokyo, Japan: Bachelor of Economics",
                 dbs: "Database Specialist Examination"
