@@ -1,0 +1,22 @@
+{
+  "name": "kunimitaiyoh.github.io",
+  "version": "1.0.0",
+  "description": "Profile: KUNIMI Taiyoh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunimitaiyoh/kunimitaiyoh.github.io.git"
+  },
+  "keywords": [
+    "profile"
+  ],
+  "author": "KUNIMI Taiyoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kunimitaiyoh/kunimitaiyoh.github.io/issues"
+  },
+  "homepage": "https://github.com/kunimitaiyoh/kunimitaiyoh.github.io#readme"
+}
