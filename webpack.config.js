@@ -16,6 +16,20 @@ module.exports = {
     },
     module: {
         rules: [{
+            test: /\.jsx?$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: "babel-loader",
+                options: {
+                    presets: ["react"],
+                    plugins: [
+                        "transform-react-jsx",
+                        "jsx-control-statements"
+                    ]
+                }
+            }]
+        },
+        {
             test: /\.html$/,
             exclude: /node_modules/,
             loader: "html-loader"
