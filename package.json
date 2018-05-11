@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/kunimitaiyoh/kunimitaiyoh.github.io/issues"
   },
-  "homepage": "https://github.com/kunimitaiyoh/kunimitaiyoh.github.io#readme"
+  "homepage": "https://github.com/kunimitaiyoh/kunimitaiyoh.github.io#readme",
+  "devDependencies": {
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3"
+  }
 }
