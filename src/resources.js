@@ -1,3 +1,5 @@
+import * as immutable from "immutable";
+
 const data = {
     common: {
         email: "kunimi.taiyoh@gmail.com",
@@ -37,22 +39,21 @@ const data = {
 };
 
 const validate = function (data) {
-    const commonKeys = Object.keys(data.common);
-    const languages = Object.keys(data.translations);
-    const translationKeys = (() => {
-        let keys = [];
-        languages.forEach(l => {
-            Object.keys(data.translations[l]).forEach(t => {
-                keys[t] = 1;
-            });
-        });
-        return Object.keys(keys);
-    })();
+    const commonKeys = immutable.Set(Object.keys(data.common));
+    const translationKeys = immutable.List(Object.keys(data.translations))
+        .flatMap(lang => Object.keys(data.translations[lang]))
+        .toSet();
 
-    // TODO: common と translationKeys に共通の要素がない
-    // かつ すべての translations[languages[i]] の要素は translationKeys に含まれる。
-    const errors = [];
-    return errors;
+    const duplicated = commonKeys.intersect(translationKeys)
+        .map(key => "A key \"" + key + "\" is duplicated.");
+    const missings = immutable.Map(data.translations)
+        .flatMap((items, lang) => {
+            const set = immutable.Set(immutable.Map(items).keys());
+            return translationKeys.filter(key => !set.contains(key))
+                .map(key => [key, "A key \"" + key + "\" is missing in language \"" + lang + "\"."])
+                .toSeq();
+        })
+    return duplicated.concat(missings).toJS()
 };
 
 const errors = validate(data);

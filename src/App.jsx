@@ -24,7 +24,7 @@ export default ({ errors, r, environment, age }) => (
               <ul className="list">
                 {
                   errors.map(error =>
-                    <li>{{ error }}</li>
+                    <li>{ error }</li>
                   )
                 }
               </ul>
