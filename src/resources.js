@@ -60,8 +60,8 @@ const errors = validate(data);
 
 export default {
     get: function(lang) {
+        const language = lang in data.translations ? lang : "en";
         return function (key) {
-            const language = lang in data.translations ? lang : "en";
             const target = (key in data.translations[language]) ? data.translations[language] : data.common;
             if (key in target)
                 return target[key];
