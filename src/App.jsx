@@ -6,6 +6,9 @@ const testLang = function(lang, environment) {
   return lang === environment.language;
 }
 
+/**
+ * @see https://github.com/AlexGilleran/jsx-control-statements
+ */
 export default ({ errors, r, environment, age }) => (
   <div id="app" className="ui container">
     <div className="ui tabular  menu">
@@ -15,24 +18,16 @@ export default ({ errors, r, environment, age }) => (
         <a href="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</a>
       </div>
     </div>
-    {
-      (() => {
-        if (errors.length > 0) {
-          return (
-            <div className="ui negative message">
-              <div className="header">Errors</div>
-              <ul className="list">
-                {
-                  errors.map((error, i) =>
-                    <li key={ i }>{ error }</li>
-                  )
-                }
-              </ul>
-            </div>
-          );
-        }
-      })()
-    }
+    <If condition={ errors.length > 0 }>
+      <div className="ui negative message">
+        <div className="header">Errors</div>
+        <ul className="list">
+          <For each="error" index="i" of={ errors }>
+            <li key={ i }>{ error }</li>
+          </For>
+        </ul>
+      </div>
+    </If>
     <div className="ui grid">
       <div className="row">
         <div className="four wide column">
