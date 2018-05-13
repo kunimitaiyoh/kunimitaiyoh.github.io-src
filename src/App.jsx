@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from 'react';
-import portrait from "../public/portrait_2244x2244.jpg";
+import portrait from "../public/portrait_561x561.jpg";
 
 const testLang = function(lang, environment) {
   return lang === environment.language;
@@ -38,7 +38,7 @@ export default ({ errors, r, environment, age }) => (
         <div className="four wide column">
           <div className="ui items">
             <div className="image">
-              <img className="ui medium rounded image" src={ portrait } />
+              <img className="ui medium rounded image" src={ portrait } width="561" height="561" />
             </div>
             <div className="item">
               <div className="content">
