@@ -23,8 +23,8 @@ export default ({ errors, r, environment, age }) => (
               <div className="header">Errors</div>
               <ul className="list">
                 {
-                  errors.map(error =>
-                    <li>{ error }</li>
+                  errors.map((error, i) =>
+                    <li key={ i }>{ error }</li>
                   )
                 }
               </ul>
