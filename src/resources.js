@@ -68,5 +68,6 @@ export default {
                 console.error(key + " is not found in translations.");
                 return null;
         }
-    }
+    },
+    errors,
 };
