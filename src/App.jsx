@@ -76,8 +76,10 @@ export default ({ resources, environment, age }) => (
             <section>
               <For each="employment" index="i" of={ resources.workExperience.employments }>
                 <div key={ i }>
-                  <h3>{ employment.company }</h3>
-                  <h4>{ resources.workExperience.format(employment) }</h4>
+                  <h3 style={ { marginBottom: "0" } }>{ employment.company }</h3>
+                  <section>
+                    <small>{ resources.workExperience.format(employment) }</small>
+                  </section>
                   <ul>
                     <For each="work" index="j" of={ employment.works }>
                       <li key={ keys(i, j) }>{ work.description }</li>
