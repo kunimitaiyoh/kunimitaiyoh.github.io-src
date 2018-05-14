@@ -35,7 +35,11 @@ module.exports = {
             loader: "html-loader"
         },
         {
-            test: /\.(jpe?g|png)$/,
+            test: /\.css$/,
+            use: ["style-loader", "css-loader"],
+        },
+        {
+            test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
             loaders: "file-loader?name=[name].[ext]"
         }]
     },
@@ -43,7 +47,7 @@ module.exports = {
         alias: {
             "@": path.resolve(__dirname, "src")
         },
-        extensions: [".js", ".jsx"]
+        extensions: [".js", ".jsx", ".css"]
     },
     plugins: [
         new HtmlWebpackPlugin({

@@ -3,6 +3,7 @@ import * as util from "./util";
 import resources from "./resources";
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "semantic-ui-css/semantic.min.css";
 
 const age = util.calculateAge(1990, 12, 21, new Date());
 const queryParams = util.extractQueryParams(window);
