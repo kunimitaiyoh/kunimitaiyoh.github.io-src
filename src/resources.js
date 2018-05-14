@@ -63,11 +63,12 @@ export default {
         const language = lang in data.translations ? lang : "en";
         return function (key) {
             const target = (key in data.translations[language]) ? data.translations[language] : data.common;
-            if (key in target)
+            if (key in target) {
                 return target[key];
-            else
+            } else {
                 console.error(key + " is not found in translations.");
                 return null;
+            }
         }
     },
     errors,
