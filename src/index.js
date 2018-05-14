@@ -1,6 +1,6 @@
 import App from "./App";
 import * as util from "./util";
-import resources from "./resources";
+import * as res from "./resources";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "semantic-ui-css/semantic.min.css";
@@ -8,11 +8,10 @@ import "semantic-ui-css/semantic.min.css";
 const age = util.calculateAge(1990, 12, 21, new Date());
 const queryParams = util.extractQueryParams(window);
 const environment = util.getEnvironment(queryParams, window);
-const r = resources.get(environment.language);
+const resources = res.getResources(environment.language);
 
 const props = {
-    errors: resources.errors,
-    r,
+    resources: resources,
     environment,
     age,
 };
