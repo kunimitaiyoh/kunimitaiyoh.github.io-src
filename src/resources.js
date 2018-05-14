@@ -1,5 +1,9 @@
 import * as immutable from "immutable";
 
+const hired = (company, employmentType, start, end, works) => ({ company, employmentType, start, end, works });
+const work = (description, options) => ({ description, options: (options || {}) });
+const activity = (item) => (typeof item === "string") ? { description: item } : item;
+
 const data = {
     common: {
         email: "kunimi.taiyoh@gmail.com",
@@ -14,11 +18,64 @@ const data = {
             digest: "概略",
             digestContent: "ウェブアプリケーション、デスクトップアプリケーション、スマートフォンアプリケーションなどを開発するプログラマーです。",
             workExperience: "経歴",
+            workExperienceItems: [
+                hired("株式会社エイ・シー・ティ", "契約社員", "2016年3月", "2017年5月", [
+                    work("Androidアプリケーション（Java 7）の開発を行なった。"),
+                    work("NET MVC（C# 6）によるウェブサイトの開発を行なった。SQL Server を扱った。"),
+                    work("一部プロジェクトでGit，Vagrantの利用を提案し、導入が行なわれた。"
+                        + "導入にあたってGitサーバーの構築を担当した。"),
+                ]),
+                hired("ＦＫＣ株式会社", "正社員", "2015年07月", "2016年03月", [
+                    ".NET（C# 3）による Windows アプリケーションの開発を行なった。",
+                    "PHP 5.2（フルスクラッチ）によるウェブサイトの開発を行なった。SQL Server を扱った。",
+                ]),
+                hired("株式会社ＲＭＡ", "派遣社員・正社員", "2014年10月", "2015年06月", [
+                    "CakePHP（PHP 5.4）によるウェブサイトの開発（バックエンド、フロントエンド）を行なった。MySQLを扱った。",
+                    "NET（C# 3）による Windows アプリケーションの開発を行なった。SQL Server を扱った。",
+                    "Dropwizard（Java 7）による REST サービスおよびフロントエンドの開発を行なった。DynamoDB を扱った。"
+                ]),
+            ],
+            privateActivities:
+                [
+                    "大学院生へのオブジェクト指向プログラミングの指導",
+                    "Kotlin による、Androidアプリケーションの開発",
+                    "React 16, Angular 4 の学習",
+                    "Django、Ansible によるウェブサイトの開発",
+                    {
+                        description: "Docker によるマイクロサービスで構成されたウェブアプリケーションの開発",
+                        annotations: [
+                            "Scala による REST サービス、Vue.js によるフロントエンド（nginx）、MongoDB で構成している。",
+                            "FunSpec、Travis CI、webpack、TypeScript を利用している。",
+                        ]
+                    }
+                ].map(activity),
+            otherSkills:
+                [
+                    "Java 8 でのプログラミング（Stream などを利用する）ができる。",
+                    "Perl、Python、Haskellでのプログラミングが少しできる。",
+                    "SSH で Linux の基本的な操作ができる。",
+                    "関数型プログラミングの基礎を理解している。",
+                    "アルゴリズムとデータ構造の基礎を理解している。",
+                    "リレーショナルデータベースの基礎を理解し、基本的なパフォーマンスチューニングができる。",
+                    "ウェブアプリケーションの基本的なセキュリティを理解している。",
+                ].map(item => { description: item }),
+            referencedBooks: [
+                "『すごいHaskell たのしく学ぼう！』",
+                "『Javaによる関数型プログラミング』",
+                "『リーダブルコード』",
+                "『ThoughtWorksアンソロジー』",
+                "『SQLアンチパターン』",
+                "『アルゴリズムイントロダクション 第1巻』",
+                "『体系的に学ぶ 安全なWebアプリケーションの作り方』",
+                "『型システム入門』",
+            ].map(item => { title: item }),
+            favoriteBooks: "気に入っている書籍",
             skills: "スキル",
             myAccounts: "アカウント",
             education: "学歴",
             univ: "東京経済大学 経済学部卒業",
             dbs: "データベーススペシャリスト試験",
+            to: "～",
         },
         en: {
             head: "Profile: KUNIMI Taiyoh",
@@ -33,7 +90,8 @@ const data = {
             myAccounts: "My Accounts",
             education: "Education",
             univ: "Tokyo Keizai University, Tokyo, Japan: Bachelor of Economics",
-            dbs: "Database Specialist Examination"
+            dbs: "Database Specialist Examination",
+            to: "to",
         },
     }
 };
