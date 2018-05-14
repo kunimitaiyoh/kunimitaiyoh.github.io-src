@@ -3,15 +3,13 @@ const work = (description, options) => ({ description, options: (options || {}) 
 const activity = (item) => (typeof item === "string") ? { description: item } : item;
 
 export const getResources = (lang) => {
-    const language = lang in data.translations ? lang : "en";
-
     /**
      * resolve an appropriate object about language by the given language code.
      *
      * @param {() => any} japanese supplier of an object for Japanese
      * @param {() => any} english supplier of an object for English
      */
-    const resolve = (japanese, english) => language === "ja" ? japanese() : english();
+    const resolve = (japanese, english) => lang === "ja" ? japanese() : english();
 
     return {
         email: "kunimi.taiyoh@gmail.com",
@@ -28,9 +26,19 @@ export const getResources = (lang) => {
                 () => "A software engineer who develops web applications, desktop application, smart phone applications and so on."
             ),
         },
+        education: {
+            title: resolve(() => "学歴", () => "Education"),
+            items: [
+                {
+                    date: resolve(() => "2014年3月", () => "March 2014"),
+                    title: resolve(() => "東京経済大学 経済学部卒業", () => "Tokyo Keizai University, Tokyo, Japan: Bachelor of Economics"),
+                },
+            ],
+            format: e => resolve(() => e.date + "　" + e.title, () => e.title + " " + e.date),
+        },
         // TODO: dates should be described as objects without language-dependency.
-        works: {
-            title: resolve(() => "経歴", () => "Work Experience"),
+        workExperience: {
+            title: resolve(() => "職歴", () => "Work Experience"),
             employments: [
                 {
                     company: resolve(() => "株式会社エイ・シー・ティ", () => "A.C.T. Inc."),
@@ -72,7 +80,7 @@ export const getResources = (lang) => {
                     ],
                 }
             ],
-            format: (e) => resolve(() => start + "～" + end + "（" + e.type + ")"),
+            format: e => resolve(() => e.start + "～" + e.end + "（" + e.type + ")", () => e.start + " to " + e.end),
         },
         privateActivities: {
             title: resolve(() => "業務外の活動", () => "Private Activities"),
@@ -82,7 +90,7 @@ export const getResources = (lang) => {
                 resolve(() => "React 16, Angular 4 の学習", () => ""),
                 resolve(() => "Django、Ansible によるウェブサイトの開発", () => ""),
                 {
-                    description: resolve(() => "Docker によるマイクロサービスで構成されたウェブアプリケーションの開発"),
+                    description: resolve(() => "Docker によるマイクロサービスで構成されたウェブアプリケーションの開発", () => ""),
                     annotations: [
                         resolve(() => "Scala による REST サービス、Vue.js によるフロントエンド（nginx）、MongoDB で構成している。", () => ""),
                         resolve(() =>"FunSpec、Travis CI、webpack、TypeScript を利用している。", () => ""),
@@ -91,7 +99,7 @@ export const getResources = (lang) => {
             ].map(activity),
         },
         skills: {
-            title: resolve(() => "スキル", () => "Skills"),
+            title: resolve(() => "その他のスキル", () => "Other Skills"),
             items: [
                 resolve(() => "Java 8 でのプログラミング（Stream などを利用する）ができる。", () => ""),
                 resolve(() => "Perl、Python、Haskellでのプログラミングが少しできる。", () => ""),
@@ -100,19 +108,10 @@ export const getResources = (lang) => {
                 resolve(() => "アルゴリズムとデータ構造の基礎を理解している。", () => ""),
                 resolve(() => "リレーショナルデータベースの基礎を理解し、基本的なパフォーマンスチューニングができる。", () => ""),
                 resolve(() => "ウェブアプリケーションの基本的なセキュリティを理解している。", () => ""),
-            ].map(item => { description: item }),
+            ].map(item => ({ description: item })),
         },
         myAccounts: {
             title: resolve(() => "アカウント", () => "My Accounts"),
-        },
-        education: {
-            title: resolve(() => "学歴", () => "Education"),
-            items: [
-                {
-                    date: (() => "2014年3月", () => "March 2014"),
-                    title: resolve(() => "東京経済大学 経済学部卒業", () => "Tokyo Keizai University, Tokyo, Japan: Bachelor of Economics"),
-                },
-            ],
         },
         qualifications: {
             title: resolve(() => "資格", () => "Qualifications"),
@@ -122,19 +121,20 @@ export const getResources = (lang) => {
                     title: resolve(() => "データベーススペシャリスト試験", () => "Database Specialist Examination"),
                 },
             ],
+            format: resolve(() => e => e.date + "　" + e.title, () => e => e.date + " " + e.title)
         },
         favoriteBooks: {
             title: resolve(() => "お気に入りの書籍", () => "Favorite books"),
             items: [
-                "『すごいHaskell たのしく学ぼう！』",
-                "『Javaによる関数型プログラミング』",
-                "『リーダブルコード』",
-                "『ThoughtWorksアンソロジー』",
-                "『SQLアンチパターン』",
-                "『アルゴリズムイントロダクション 第1巻』",
-                "『体系的に学ぶ 安全なWebアプリケーションの作り方』",
-                "『型システム入門』",
-            ].map(item => { title: item }),
-        }
+                resolve(() => "『すごいHaskell たのしく学ぼう！』", () => ""),
+                resolve(() => "『Javaによる関数型プログラミング』", () => ""),
+                resolve(() => "『リーダブルコード』", () => ""),
+                resolve(() => "『ThoughtWorksアンソロジー』", () => ""),
+                resolve(() => "『SQLアンチパターン』", () => ""),
+                resolve(() => "『アルゴリズムイントロダクション 第1巻』", () => ""),
+                resolve(() => "『体系的に学ぶ 安全なWebアプリケーションの作り方』", () => ""),
+                resolve(() => "『型システム入門』", () => ""),
+            ].map(item => ({ title: item })),
+        },
     };
 };

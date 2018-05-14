@@ -6,30 +6,23 @@ const testLang = function(lang, environment) {
   return lang === environment.language;
 }
 
+const keys = (...k) => k.join(".");
+
 /**
  * @see https://github.com/AlexGilleran/jsx-control-statements
  */
-export default ({ errors, r, environment, age }) => (
+export default ({ resources, environment, age }) => (
   <div id="app" className="ui container">
     <div className="ui tabular  menu">
-      <h1 className=" header">{ r("head") }</h1>
+      <h1 className=" header">{ resources.head }</h1>
       <div className="right menu">
         <a href="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</a>
         <a href="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</a>
       </div>
     </div>
-    <If condition={ errors.length > 0 }>
-      <div className="ui negative message">
-        <div className="header">Errors</div>
-        <ul className="list">
-          <For each="error" index="i" of={ errors }>
-            <li key={ i }>{ error }</li>
-          </For>
-        </ul>
-      </div>
-    </If>
     <div className="ui grid">
       <div className="row">
+
         <div className="four wide column">
           <div className="ui items">
             <div className="image">
@@ -37,51 +30,107 @@ export default ({ errors, r, environment, age }) => (
             </div>
             <div className="item">
               <div className="content">
-                <a className="header">{ r("name") }</a>
-                <div className="meta">{ r("nameLatin") }</div>
+                <a className="header">{ resources.name }</a>
+                <div className="meta">{ resources.nameLatin }</div>
               </div>
             </div>
             <div className="ui list">
               <div className="item">
                 <i className="birthday cake icon"></i>
-                <div className="content">{ r("birthday") + " (" + age + ")" }</div>
+                <div className="content">{ resources.birthday + " (" + age + ")" }</div>
               </div>
               <div className="item">
                 <i className="envelope icon"></i>
                 <div className="content">
-                  <a href={ "mailto:" + r("email") } >{ r("email") }</a>
+                  <a href={ "mailto:" + resources.email } >{ resources.email }</a>
                 </div>
               </div>
               <div className="item">
                 <i className="marker alternate icon"></i>
-                <div className="content">{ r("location") }</div>
+                <div className="content">{ resources.location }</div>
               </div>
               <div className="item" style={ { display: "none" } }>
                 <i className="building icon"></i>
-                <div className="content">?????? Inc.</div>
+                <div className="content">{ resources.company }</div>
               </div>
             </div>
           </div>
         </div>
+
         <div className="twelve wide column">
-          <h2 className="ui header">{ r("digest") }</h2>
-          <p>{ r("digestContent") }</p>
-        </div>
-      </div>
-      <div className="row">
-        <div className="sixteen wide column">
-          <section style={ { display: "none" } }>
-            <h2 className="ui dividing header">{ r("workExperience") }</h2>
+          <h2 className="ui header">{ resources.digest.title }</h2>
+          <p>{ resources.digest.text }</p>
+
+          <div>
+
+            <h2 className="ui dividing header">{ resources.education.title }</h2>
             <section>
+              <ul>
+                <For each="item" index="i" of={ resources.education.items }>
+                  <li key={ i }>{ resources.education.format(item) }</li>
+                </For>
+              </ul>
             </section>
-          </section>
-          <section style={ { display: "none" } }>
-            <h2 className="ui dividing header">{ r("skills") }</h2>
+
+            <h2 className="ui dividing header">{ resources.workExperience.title }</h2>
             <section>
+              <For each="employment" index="i" of={ resources.workExperience.employments }>
+                <div key={ i }>
+                  <h3>{ employment.company }</h3>
+                  <h4>{ resources.workExperience.format(employment) }</h4>
+                  <ul>
+                    <For each="work" index="j" of={ employment.works }>
+                      <li key={ keys(i, j) }>{ work.description }</li>
+                    </For>
+                  </ul>
+                </div>
+              </For>
             </section>
-          </section>
-          <section>
-            <h2 className="ui dividing header">{ r("myAccounts") }</h2>
+
+            <h2 className="ui dividing header">{ resources.privateActivities.title }</h2>
+            <section>
+              <ul>
+                <For each="item" index="i" of={ resources.privateActivities.items }>
+                  <li key={ i }>{ item.description }</li>
+                  <If condition={ item.annotations !== undefined && item.annotations.length > 0 }>
+                    <ul>
+                      <For each="annotation" index="j" of={ item.annotations }>
+                        <li key={ keys(i, j) }>{ annotation }</li>
+                      </For>
+                    </ul>
+                  </If>
+                </For>
+              </ul>
+            </section>
+
+            <h2 className="ui dividing header">{ resources.skills.title }</h2>
+            <section>
+              <ul>
+                <For each="item" index="i" of={ resources.skills.items }>
+                  <li key={ i }>{ item.description }</li>
+                </For>
+              </ul>
+            </section>
+
+            <h2 className="ui dividing header">{ resources.qualifications.title }</h2>
+            <section>
+              <ul>
+                <For each="qualification" index="i" of={ resources.qualifications.items }>
+                  <li key={ i }>{ resources.qualifications.format(qualification) }</li>
+                </For>
+              </ul>
+            </section>
+
+            <h2 className="ui dividing header">{ resources.favoriteBooks.title }</h2>
+            <section>
+              <ul>
+                <For each="item" index="i" of={ resources.favoriteBooks.items }>
+                  <li key={ i }>{ item.title }</li>
+                </For>
+              </ul>
+            </section>
+
+            <h2 className="ui dividing header">{ resources.myAccounts.title }</h2>
             <section className="ui list">
               <div className="item">
                 <i className="github icon"></i>
@@ -96,8 +145,11 @@ export default ({ errors, r, environment, age }) => (
                 <div className="content"><a href="  https://www.linkedin.com/in/kunimitaiyoh/">LinkedIn</a></div>
               </div>
             </section>
-          </section>
+
+          </div>
         </div>
+      </div>
+      <div className="row">
       </div>
     </div>
   </div>
