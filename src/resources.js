@@ -158,8 +158,8 @@ export const getResources = (lang) => {
             title: resolve(() => "お気に入りの書籍", () => "Favorite Books"),
             items: [
                 resolve(() => "『すごいHaskell たのしく学ぼう！』", () => "Learn You a Haskell for Great Good!"),
-                resolve(() => "『Javaによる関数型プログラミング』", () => "Functional Programming in Javar"),
-                resolve(() => "『リーダブルコード』", () => "The Art of Readable"),
+                resolve(() => "『Javaによる関数型プログラミング』", () => "Functional Programming in Java"),
+                resolve(() => "『リーダブルコード』", () => "The Art of Readable Code"),
                 resolve(() => "『ThoughtWorksアンソロジー』", () => "The ThoughtWorks Anthology"),
                 resolve(() => "『SQLアンチパターン』", () => "SQL Antipatterns"),
                 resolve(() => "『アルゴリズムイントロダクション 第1巻』", () => "Introduction to Algorithms"),
