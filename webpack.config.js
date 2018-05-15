@@ -12,8 +12,20 @@ const isProduction = process.argv.includes("-p");
 module.exports = (env, argv) => ({
     mode: "development",
     output: {
+        filename: "bundle.[name].js",
         path: path.resolve(__dirname, "dist"),
-        publicPath: "/",
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /node_modules/,
+                    name: 'vendor',
+                    chunks: 'initial',
+                    enforce: true
+                }
+            }
+        }
     },
     devtool: isProduction ? false : "source-map",
     devServer: {
@@ -29,7 +41,11 @@ module.exports = (env, argv) => ({
         },
         {
             test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, "css-loader?minimize"],
+            use: [
+                // MiniCssExtractPlugin.loader,
+                "style-loader",
+                "css-loader",
+            ],
         },
         {
             test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
@@ -53,7 +69,7 @@ module.exports = (env, argv) => ({
         alias: {
             "@": path.resolve(__dirname, "src")
         },
-        extensions: [".js", ".jsx", ".css"]
+        extensions: [".js", ".jsx"]
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -63,16 +79,16 @@ module.exports = (env, argv) => ({
             defer: [/.jsx?$/],
         }),
     ].concat(isProduction ? [
-        new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css",
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: "[name].[hash].css",
+        //     chunkFilename: "[id].[hash].css",
+        // }),
         new PurifyCSSPlugin({
-            minimize: true,
+            minimize: false,
             paths: glob.sync([
                 path.join(__dirname, 'public/**/*.html'),
                 path.join(__dirname, 'src/**/*.jsx'),
-                path.join(__dirname, 'src/**/*.css'),
+                // path.join(__dirname, 'src/**/*.css'),
             ]),
         }),
         new UglifyJsPlugin({
