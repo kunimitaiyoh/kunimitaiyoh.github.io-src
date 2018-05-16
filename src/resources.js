@@ -9,7 +9,7 @@ export const getResources = (lang) => {
      * @param {() => any} japanese supplier of an object for Japanese
      * @param {() => any} english supplier of an object for English
      */
-    const resolve = (japanese, english) => lang === "ja" ? japanese() : english();
+    const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
     return {
         email: "kunimi.taiyoh@gmail.com",
