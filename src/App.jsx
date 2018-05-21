@@ -6,8 +6,6 @@ const testLang = function(lang, environment) {
   return lang === environment.language;
 }
 
-const keys = (...k) => k.join(".");
-
 /**
  * @see https://github.com/AlexGilleran/jsx-control-statements
  */
@@ -82,7 +80,7 @@ export default ({ resources, environment, age }) => (
                   </section>
                   <ul>
                     <For each="work" index="j" of={ employment.works }>
-                      <li key={ keys(i, j) }>{ work.description }</li>
+                      <li key={ j }>{ work.description }</li>
                     </For>
                   </ul>
                 </div>
@@ -97,7 +95,7 @@ export default ({ resources, environment, age }) => (
                   <If condition={ item.annotations !== undefined && item.annotations.length > 0 }>
                     <ul>
                       <For each="annotation" index="j" of={ item.annotations }>
-                        <li key={ keys(i, j) }>{ annotation }</li>
+                        <li key={ j }>{ annotation }</li>
                       </For>
                     </ul>
                   </If>
