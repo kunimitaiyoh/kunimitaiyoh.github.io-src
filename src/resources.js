@@ -48,10 +48,10 @@ export const getResources = (lang) => {
                     works: [
                         work(resolve(
                             () => "Androidアプリケーション（Java 7）の開発を行なった。",
-                            () => "Exercised to develop an Android application (Java 7).")),
+                            () => "Developed an Android application (Java 7).")),
                         work(resolve(
                             () => ".NET MVC（C# 6）によるウェブサイトの開発を行なった。SQL Server を扱った。",
-                            () => "Exercised to develop a web site with .NET MVC (C# 6). Used SQL Server.")),
+                            () => "Developed a web site with .NET MVC (C# 6). Used SQL Server.")),
                         work(resolve(
                             () => "一部プロジェクトでGit，Vagrantの使用を提案し、導入が行なわれた。"
                                 + "導入にあたってGitサーバーの構築を担当した。",
@@ -67,10 +67,10 @@ export const getResources = (lang) => {
                     works: [
                         work(resolve(
                             () => ".NET（C# 3）による Windows アプリケーションの開発を行なった。",
-                            () => "Excercised to develop a Windows application with .NET (C# 3).")),
+                            () => "Developed a Windows application with .NET (C# 3).")),
                         work(resolve(
                             () => "PHP 5.2（フルスクラッチ）によるウェブサイトの開発を行なった。SQL Server を扱った。",
-                            () => "Excercised to develop a web site with PHP 5.2 from scratch. Used SQL Server.")),
+                            () => "Developed a web site with PHP 5.2 from scratch. Used SQL Server.")),
                     ],
                 },
                 {
@@ -81,13 +81,13 @@ export const getResources = (lang) => {
                     works: [
                         work(resolve(
                             () => "CakePHP（PHP 5.4）によるウェブサイトの開発（バックエンド、フロントエンド）を行なった。MySQLを扱った。",
-                            () => "Excercised to develop a web site (backend and frontend) with CakePHP (PHP 5.4). Used MySQL.")),
+                            () => "Developed a web site (backend and frontend) with CakePHP (PHP 5.4). Used MySQL.")),
                         work(resolve(
                             () => ".NET（C# 3）による Windows アプリケーションの開発を行なった。SQL Server を扱った。",
-                            () => "Excercised to develop a Windows application with .NET (C# 3). Used SQL Server.")),
+                            () => "Developed a Windows application with .NET (C# 3). Used SQL Server.")),
                         work(resolve(
                             () => "Dropwizard（Java 7）による REST サービスおよびフロントエンドの開発を行なった。DynamoDB を扱った。",
-                            () => "Excercised to develop a REST service with Dropwizard (Java 7) and frontend site. Used DynamoDB.")),
+                            () => "Developed a REST service with Dropwizard (Java 7) and frontend site. Used DynamoDB.")),
                     ],
                 }
             ],
@@ -103,7 +103,7 @@ export const getResources = (lang) => {
                 {
                     description: resolve(
                         () => "Docker によるマイクロサービスで構成されたウェブアプリケーションの開発",
-                        () => "Development a web application composed of microservices with Docker"),
+                        () => "Develop a web application composed of microservices with Docker"),
                     annotations: [
                         resolve(
                             () => "Scala による REST サービス、Vue.js によるフロントエンド（nginx）、MongoDB で構成している。",
