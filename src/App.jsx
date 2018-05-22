@@ -2,6 +2,8 @@ import classNames from "classnames";
 import React from 'react';
 import portrait from "../public/portrait_561x561.jpg";
 import joda from "js-joda";
+import "semantic-ui-css/semantic.min.css";
+import "./App.scss";
 
 const testLang = function(lang, environment) {
   return lang === environment.language;

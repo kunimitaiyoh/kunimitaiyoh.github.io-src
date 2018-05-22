@@ -4,7 +4,6 @@ import * as res from "./resources";
 import { Instant } from "js-joda";
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "semantic-ui-css/semantic.min.css";
 
 const buildDate = Instant.parse(DEFINED_BUILD_DATE);
 const age = util.calculateAge(1990, 12, 21, new Date());
