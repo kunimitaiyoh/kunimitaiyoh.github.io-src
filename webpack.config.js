@@ -6,6 +6,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurifyCSSPlugin = require("purifycss-webpack");
 const glob = require("glob-all");
+const joda = require("js-joda");
 
 const isProduction = process.argv.includes("-p");
 
@@ -72,6 +73,9 @@ module.exports = (env, argv) => ({
         extensions: [".js", ".jsx"]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            DEFINED_BUILD_DATE: JSON.stringify(joda.Instant.now()),
+        }),
         new HtmlWebpackPlugin({
             template: "./public/index.html"
         }),

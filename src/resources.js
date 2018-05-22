@@ -1,3 +1,5 @@
+import { DateTimeFormatter, LocalDateTime } from "js-joda";
+
 const hired = (company, type, start, end, works) => ({ company, type, start, end, works });
 const work = (description, options) => ({ description, options: (options || {}) });
 const activity = (item) => (typeof item === "string") ? { description: item } : item;
@@ -11,7 +13,10 @@ export const getResources = (lang) => {
      */
     const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
+    const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+
     return {
+        resolveLastUpdate: resolve(() => x => "最終更新日: " + formatInstant(x), () => x => "Last update: " + formatInstant(x)),
         email: "kunimi.taiyoh@gmail.com",
         head: resolve(() => "プロフィール: 國見 太陽", () => "Profile: KUNIMI Taiyoh"),
         name: resolve(() => "國見 太陽", () => "KUNIMI Taiyoh"),
