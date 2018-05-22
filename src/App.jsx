@@ -147,14 +147,17 @@ export default ({ buildDate, resources, environment, age }) => (
                 </div>
                 <div className="item">
                   <i className="linkedin icon"></i>
-                  <div className="content"><a href="  https://www.linkedin.com/in/kunimitaiyoh/">LinkedIn</a></div>
+                  <div className="content"><a href="https://www.linkedin.com/in/kunimitaiyoh/">LinkedIn</a></div>
                 </div>
+                <div className="item">
+                  <i className="user icon"></i>
+                  <div className="content"><a href="https://www.wantedly.com/users/69028785">Wantedly</a></div>
+                </div>
+
               </section>
 
             </div>
           </div>
-        </div>
-        <div className="row">
         </div>
       </div>
     </div>
