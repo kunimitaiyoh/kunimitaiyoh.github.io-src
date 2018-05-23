@@ -3,6 +3,9 @@
   "version": "2.0.0",
   "description": "Profile: KUNIMI Taiyoh",
   "main": "index.js",
+  "sideEffects": [
+    "*.scss"
+  ],
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack -p",
@@ -40,7 +43,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.11",
-    "extract-text-webpack-plugin": "^3.0.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
     "gh-pages": "^1.1.0",
     "glob-all": "^3.1.0",

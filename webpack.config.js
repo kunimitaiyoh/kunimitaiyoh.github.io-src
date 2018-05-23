@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require("purifycss-webpack");
 const glob = require("glob-all");
 const joda = require("js-joda");
@@ -11,7 +11,7 @@ const joda = require("js-joda");
 const isProduction = process.argv.includes("-p");
 
 module.exports = (env, argv) => ({
-    mode: "development",
+    mode: isProduction ? "development" : "production",
     output: {
         filename: "bundle.[name].js",
         path: path.resolve(__dirname, "dist"),
@@ -42,11 +42,10 @@ module.exports = (env, argv) => ({
         },
         {
             test: /\.s?css$/,
-            use: [
-                // MiniCssExtractPlugin.loader,
-                "style-loader",
-                "css-loader",
-            ],
+            loader: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: "css-loader",
+            }),
         },
         {
             test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
@@ -60,7 +59,7 @@ module.exports = (env, argv) => ({
                 options: {
                     presets: ["react"],
                     plugins: [
-                        "jsx-control-statements"
+                        "jsx-control-statements",
                     ]
                 }
             }]
@@ -82,18 +81,18 @@ module.exports = (env, argv) => ({
         new ScriptExtHtmlWebpackPlugin({
             defer: [/.jsx?$/],
         }),
+        new ExtractTextPlugin("[name].[hash].css"),
     ].concat(isProduction ? [
-        // new MiniCssExtractPlugin({
-        //     filename: "[name].[hash].css",
-        //     chunkFilename: "[id].[hash].css",
-        // }),
         new PurifyCSSPlugin({
-            minimize: false,
+            minimize: true,
             paths: glob.sync([
                 path.join(__dirname, 'public/**/*.html'),
                 path.join(__dirname, 'src/**/*.jsx'),
-                // path.join(__dirname, 'src/**/*.css'),
             ]),
+            purifyOptions: {
+                minify: true,
+                whitelist: [ "*:not*" ],
+            },
         }),
         new UglifyJsPlugin({
             sourceMap: false,
