@@ -59,6 +59,7 @@ module.exports = (env, argv) => ({
                 options: {
                     presets: ["react"],
                     plugins: [
+                        "syntax-dynamic-import",
                         "jsx-control-statements",
                     ]
                 }

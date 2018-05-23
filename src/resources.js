@@ -1,10 +1,8 @@
-import { DateTimeFormatter, LocalDateTime } from "js-joda";
-
 const hired = (company, type, start, end, works) => ({ company, type, start, end, works });
 const work = (description, options) => ({ description, options: (options || {}) });
 const activity = (item) => (typeof item === "string") ? { description: item } : item;
 
-export const getResources = (lang) => {
+export const getResources = async (lang) => {
     /**
      * resolve an appropriate object about language by the given language code.
      *
@@ -12,6 +10,8 @@ export const getResources = (lang) => {
      * @param {() => any} english supplier of an object for English
      */
     const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
+
+    const { DateTimeFormatter, LocalDateTime } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
 
     const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
 
