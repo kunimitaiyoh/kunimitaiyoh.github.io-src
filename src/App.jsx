@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React from 'react';
 import portrait from "../public/portrait_561x561.jpg";
+import Account from "./views/Account"
 import "semantic-ui-css/semantic.min.css";
 import "./App.scss";
 
@@ -136,25 +137,11 @@ export default ({ buildDate, resources, environment, age }) => (
 
               <h2 className="ui dividing header">{ resources.myAccounts.title }</h2>
               <section className="ui list">
-                <div className="item">
-                  <i className="github icon"></i>
-                  <div className="content"><a href="https://github.com/kunimitaiyoh">GitHub</a></div>
-                </div>
-                <div className="item">
-                  <i className="twitter icon"></i>
-                  <div className="content"><a href="https://twitter.com/kunimitaiyoh">Twitter</a></div>
-                </div>
-                <div className="item">
-                  <i className="linkedin icon"></i>
-                  <div className="content"><a href="https://www.linkedin.com/in/kunimitaiyoh/">LinkedIn</a></div>
-                </div>
-                <div className="item">
-                  <i className="user icon"></i>
-                  <div className="content"><a href="https://www.wantedly.com/users/69028785">Wantedly</a></div>
-                </div>
-
+                <Account classes="github" href="https://github.com/kunimitaiyoh" title="GitHub" />
+                <Account classes="twitter" href="https://github.com/kunimitaiyoh" title="Twitter" />
+                <Account classes="linkedin" href="https://www.linkedin.com/in/kunimitaiyoh/" title="LinkedIn" />
+                <Account classes="user" href="https://www.wantedly.com/users/69028785" title="Wantedly" />
               </section>
-
             </div>
           </div>
         </div>
