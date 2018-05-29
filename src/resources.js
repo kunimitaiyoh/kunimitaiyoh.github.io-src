@@ -13,7 +13,7 @@ export const getResources = async (lang) => {
 
     const { DateTimeFormatter, LocalDateTime } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
 
-    const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+    const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     return {
         resolveLastUpdate: resolve(() => x => "最終更新日: " + formatInstant(x), () => x => "Last update: " + formatInstant(x)),
