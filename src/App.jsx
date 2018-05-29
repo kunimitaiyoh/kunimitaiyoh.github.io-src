@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from 'react';
 import portrait from "../public/portrait_561x561.jpg";
 import Account from "./views/Account"
+import BioItem from "./views/BioItem"
 import "semantic-ui-css/semantic.min.css";
 import "./App.scss";
 
@@ -38,24 +39,10 @@ export default ({ buildDate, resources, environment, age }) => (
                 </div>
               </div>
               <div className="ui list">
-                <div className="item">
-                  <i className="birthday cake icon"></i>
-                  <div className="content">{ resources.birthday + " (" + age + ")" }</div>
-                </div>
-                <div className="item">
-                  <i className="envelope icon"></i>
-                  <div className="content">
-                    <a href={ "mailto:" + resources.email } >{ resources.email }</a>
-                  </div>
-                </div>
-                <div className="item">
-                  <i className="marker alternate icon"></i>
-                  <div className="content">{ resources.location }</div>
-                </div>
-                <div className="item" style={ { display: "none" } }>
-                  <i className="building icon"></i>
-                  <div className="content">{ resources.company }</div>
-                </div>
+                <BioItem classes="birthday cake icon" content={ resources.birthday + " (" + age + ")" } />
+                <BioItem classes="envelope icon" content={ resources.email } href={ "mailto:" + resources.email } />
+                <BioItem classes="marker alternate icon" content={ resources.location } />
+                <BioItem classes="building icon" content={ resources.company } />
               </div>
             </div>
           </div>
