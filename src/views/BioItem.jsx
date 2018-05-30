@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from 'react';
 
-export default ({ classes, href, content, style }) => (
+export default ({ classes, href, content }) => (
   <div className="item">
     <i className={ classNames(classes) }></i>
     <div className="content">
