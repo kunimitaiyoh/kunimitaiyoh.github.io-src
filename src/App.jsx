@@ -42,7 +42,7 @@ export default ({ buildDate, resources, environment, age }) => (
                 <BioItem classes="birthday cake icon" content={ resources.birthday + " (" + age + ")" } />
                 <BioItem classes="envelope icon" content={ resources.email } href={ "mailto:" + resources.email } />
                 <BioItem classes="marker alternate icon" content={ resources.location } />
-                {/* <BioItem classes="building icon" content={ resources.company } /> */}
+                <BioItem classes="building icon" content={ resources.company } />
               </div>
             </div>
           </div>

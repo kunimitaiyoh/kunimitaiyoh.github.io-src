@@ -12,8 +12,9 @@ export const getResources = async (lang) => {
     const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
     const { DateTimeFormatter, LocalDateTime } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
-
     const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+    const company = resolve(() => "ブレインズコンサルティング株式会社", () => "Brains Consulting Inc.");
 
     return {
         resolveLastUpdate: resolve(() => x => "最終更新日: " + formatInstant(x), () => x => "Last update: " + formatInstant(x)),
@@ -23,7 +24,7 @@ export const getResources = async (lang) => {
         nameLatin: resolve(() => "KUNIMI Taiyoh", () => null),
         birthday: resolve(() => "1990/12/21", () => "December 21, 1990"),
         location: resolve(() => "横浜", () => "Yokohama, Japan"),
-        company: "?????? Inc.",
+        company,
         digest: {
             title: resolve(() => "概略", () => "Digest"),
             text: resolve(
@@ -45,6 +46,13 @@ export const getResources = async (lang) => {
         workExperience: {
             title: resolve(() => "職歴", () => "Work Experience"),
             employments: [
+                {
+                    company,
+                    type: resolve(() => "契約社員", () => "Contracted employee"),
+                    start: resolve(() => "2018年07月" , () => "July 2018"),
+                    end: null,
+                    works: []
+                },
                 {
                     company: resolve(() => "株式会社エイ・シー・ティ", () => "A.C.T. Inc."),
                     type: resolve(() => "契約社員", () => "Contracted employee"),
@@ -94,9 +102,9 @@ export const getResources = async (lang) => {
                             () => "Dropwizard（Java 7）による REST サービスおよびフロントエンドの開発を行なった。DynamoDB を扱った。",
                             () => "Developed a REST service with Dropwizard (Java 7) and frontend site. Used DynamoDB.")),
                     ],
-                }
+                },
             ],
-            format: e => resolve(() => e.start + "～" + e.end + "（" + e.type + ")", () => e.start + " to " + e.end),
+            format: e => resolve(() => e.start + "～" + (e.end || "") + "（" + e.type + ")", () => e.start +(e.end ? " to " + e.end : "")),
         },
         privateActivities: {
             title: resolve(() => "業務外の活動", () => "Private Activities"),
