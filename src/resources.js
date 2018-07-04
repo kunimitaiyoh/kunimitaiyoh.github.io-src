@@ -11,10 +11,14 @@ export const getResources = async (lang) => {
      */
     const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
-    const { DateTimeFormatter, LocalDateTime } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
+    const { DateTimeFormatter, LocalDateTime, LocalDate } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
     const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     const company = resolve(() => "ブレインズコンサルティング株式会社", () => "Brains Consulting Inc.");
+    const monthYear = (() => {
+        const f = DateTimeFormatter.ofPattern(resolve(() => "yyyy年MM月", () => "MM yyyy"));
+        return (year, month) => LocalDate.of(year, month).format(f);
+    })();
 
     return {
         resolveLastUpdate: resolve(() => x => "最終更新日: " + formatInstant(x), () => x => "Last update: " + formatInstant(x)),
