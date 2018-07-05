@@ -15,10 +15,16 @@ export const getResources = async (lang) => {
     const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     const company = resolve(() => "ブレインズコンサルティング株式会社", () => "Brains Consulting Inc.");
-    const monthYear = (() => {
-        const f = DateTimeFormatter.ofPattern(resolve(() => "yyyy年MM月", () => "MM yyyy"));
-        return (year, month) => LocalDate.of(year, month).format(f);
-    })();
+    const monthYear = resolve(function () {
+        const f = DateTimeFormatter.ofPattern("yyyy年MM月");
+        return (year, month) => LocalDate.of(year, month, 1).format(f);
+    }, function() {
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        return (year, month) => `${months[month - 1]} ${year}`;
+    });
 
     return {
         resolveLastUpdate: resolve(() => x => "最終更新日: " + formatInstant(x), () => x => "Last update: " + formatInstant(x)),
