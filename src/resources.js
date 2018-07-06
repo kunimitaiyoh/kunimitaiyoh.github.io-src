@@ -46,28 +46,27 @@ export const getResources = async (lang) => {
             title: resolve(() => "学歴", () => "Education"),
             items: [
                 {
-                    date: resolve(() => "2014年3月", () => "March 2014"),
+                    date: monthYear(2014, 3),
                     title: resolve(() => "東京経済大学 経済学部卒業", () => "Tokyo Keizai University, Tokyo, Japan: Bachelor of Economics"),
                 },
             ],
             format: e => resolve(() => e.date + "　" + e.title, () => e.title + " " + e.date),
         },
-        // TODO: dates should be described as objects without language-dependency.
         workExperience: {
             title: resolve(() => "職歴", () => "Work Experience"),
             employments: [
                 {
                     company,
                     type: resolve(() => "契約社員", () => "Contracted employee"),
-                    start: resolve(() => "2018年07月" , () => "July 2018"),
+                    start: monthYear(2018, 7),
                     end: null,
                     works: []
                 },
                 {
                     company: resolve(() => "株式会社エイ・シー・ティ", () => "A.C.T. Inc."),
                     type: resolve(() => "契約社員", () => "Contracted employee"),
-                    start: resolve(() => "2016年3月", () => "March 2016"),
-                    end: resolve(() => "2017年5月", () => "May 2017"),
+                    start: monthYear(2016, 3),
+                    end: monthYear(2017, 5),
                     works: [
                         work(resolve(
                             () => "Androidアプリケーション（Java 7）の開発を行なった。",
@@ -85,8 +84,8 @@ export const getResources = async (lang) => {
                 {
                     company: resolve(() => "ＦＫＣ株式会社", () => "FKC Inc."),
                     type: resolve(() => "正社員", () => " Regular employee"),
-                    start: resolve(() => "2015年07月", () => "July 2015"),
-                    end: resolve(() => "2016年03月", () => "March 2016"),
+                    start: monthYear(2015, 7),
+                    end: monthYear(2016, 3),
                     works: [
                         work(resolve(
                             () => ".NET（C# 3）による Windows アプリケーションの開発を行なった。",
@@ -99,8 +98,8 @@ export const getResources = async (lang) => {
                 {
                     company: resolve(() => "株式会社ＲＭＡ", () => "RMA Inc."),
                     type: resolve(() => "派遣社員・正社員", () => "Dispatched employee / regular employee"),
-                    start: resolve(() => "2014年10月" , () => "October 2014"),
-                    end: resolve(() => "2015年06月", () => "June 2015"),
+                    start: monthYear(2014,  10),
+                    end: monthYear(2015, 6),
                     works: [
                         work(resolve(
                             () => "CakePHP（PHP 5.4）によるウェブサイトの開発（バックエンド、フロントエンド）を行なった。MySQLを扱った。",
@@ -171,7 +170,7 @@ export const getResources = async (lang) => {
             title: resolve(() => "資格", () => "Qualifications"),
             items: [
                 {
-                    date: resolve(() => "2014年6月", () => "July 2014"),
+                    date: monthYear(2014, 6),
                     title: resolve(() => "データベーススペシャリスト試験", () => "Database Specialist Examination"),
                 },
             ],
