@@ -1,6 +1,8 @@
 import App from "./App";
 import * as util from "./util";
 
+declare const DEFINED_BUILD_DATE: string;
+
 (async function() {
   const res = await import(/* webpackChunkName: "resources" */ "./resources");
   const { Instant } = await import(/* webpackChunkName: "js-joda" */  "js-joda");

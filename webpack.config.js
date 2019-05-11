@@ -12,6 +12,9 @@ const isProduction = process.argv.includes("-p");
 
 module.exports = (env, argv) => ({
     mode: isProduction ? "development" : "production",
+    entry: {
+        main: [path.resolve(__dirname, "src/index.tsx")]
+    },
     output: {
         filename: "bundle.[name].js",
         path: path.resolve(__dirname, "dist"),
@@ -35,42 +38,45 @@ module.exports = (env, argv) => ({
         port: 3000
     },
     module: {
-        rules: [{
-            test: /\.html$/,
-            exclude: /node_modules/,
-            loader: "html-loader"
-        },
-        {
-            test: /\.s?css$/,
-            loader: ExtractTextPlugin.extract({
-                fallback: "style-loader",
-                use: "css-loader",
-            }),
-        },
-        {
-            test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
-            loaders: "file-loader?name=[name].[ext]"
-        },
-        {
-            test: /\.jsx$/,
-            exclude: /node_modules/,
-            use: [{
-                loader: "babel-loader",
-                options: {
-                    presets: ["react"],
-                    plugins: [
-                        "syntax-dynamic-import",
-                        "jsx-control-statements",
-                    ]
-                }
-            }]
-        }]
+        rules: [
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                loader: "html-loader"
+            },
+            {
+                test: /\.s?css$/,
+                loader: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader",
+                }),
+            },
+            {
+                test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
+                loaders: "file-loader?name=[name].[ext]"
+            },
+            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            {
+                test: /\.jsx$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: "babel-loader",
+                        options: {
+                            presets: ["react"],
+                            plugins: [
+                                "syntax-dynamic-import",
+                                "jsx-control-statements",
+                            ]
+                        }
+                    }
+                ]
+            }
+        ]
     },
     resolve: {
-        alias: {
-            "@": path.resolve(__dirname, "src")
-        },
-        extensions: [".js", ".jsx"]
+        extensions: [".ts", ".tsx", ".js", ".json"],
+        // plugins: [new TsconfigPathsPlugin()],
     },
     plugins: [
         new webpack.DefinePlugin({

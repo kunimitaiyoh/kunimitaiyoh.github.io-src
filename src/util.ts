@@ -1,5 +1,5 @@
-const formatDate = (date) => {
-    const f = (n, length) => n.toString().padStart(length, '0');
+function formatDate(date: Date): string {
+    const f = (n: number, length: number) => n.toString().padStart(length, '0');
 
     const y = f(date.getFullYear(), 4);
     const m = f(date.getMonth() + 1, 2);
@@ -16,20 +16,18 @@ const formatDate = (date) => {
  * @param {number} day of month of birthdate
  * @param {Date} now
  */
-export function calculateAge(year, month, day, now) {
+export function calculateAge(year: number, month: number, day: number, now: Date) {
     const birthday = formatDate(new Date(year, month - 1, day));
     const today = formatDate(now);
 
-    return Math.floor((new Number(today) - new Number(birthday)) / 10000);
+    // return Math.floor((new Number(today) - new Number(birthday)) / 10000);
+    return Math.floor((parseInt(today) - parseInt(birthday)) / 10000);
 }
 
 /**
  * extract query parameters from the window.
- *
- * @param {Window} window
- * @returns {Map<string, any>} dictionary of the query parameters
  */
-export function extractQueryParams(window) {
+export function extractQueryParams(window: Window): { [key: string]: any } {
     return window.location.search.slice(1)
         .split('&')
         .reduce((accumulator, item, i) => {
@@ -47,12 +45,12 @@ export function extractQueryParams(window) {
  * @param {Map<string, any>} queryParams
  * @param {Window} window
  */
-export function getEnvironment(queryParams, window) {
+export function getEnvironment(queryParams, window: Window): { language: string } {
     return {
         language: queryParams['lang'] ||
             (window.navigator.languages && window.navigator.languages[0]) ||
             window.navigator.language ||
-            window.navigator.userLanguage ||
-            window.navigator.browserLanguage
+            (window.navigator as any).userLanguage ||
+            (window.navigator as any).browserLanguage
     };
 }
