@@ -4,6 +4,7 @@ import { Account } from "./views/Account"
 import { BioItem } from "./views/BioItem"
 import "semantic-ui-css/semantic.min.css";
 import "./App.scss";
+import { Resources } from "./resources";
 
 const testLang = function(lang, environment) {
   return lang === environment.language;
@@ -12,7 +13,7 @@ const testLang = function(lang, environment) {
 /**
  * @see https://github.com/AlexGilleran/jsx-control-statements
  */
-export default ({ buildDate, resources, environment, age }) => {
+export default ({ buildDate, resources, environment, age }: Props) => {
   return (
     <div id="app" className="ui container">
       <div>{ resources.resolveLastUpdate(buildDate) }</div>
@@ -56,81 +57,79 @@ export default ({ buildDate, resources, environment, age }) => {
                 <h2 className="ui dividing header">{ resources.education.title }</h2>
                 <section>
                   <ul>
-                    {/*
-                    <For each="item" index="i" of={ resources.education.items }>
+                    { resources.education.items.map((item, i) => (
                       <li key={ i }>{ resources.education.format(item) }</li>
-                    </For>
-                    */}
+                    )) }
                   </ul>
                 </section>
 
                 <h2 className="ui dividing header">{ resources.workExperience.title }</h2>
                 <section>
-                  {/*
-                  <For each="employment" index="i" of={ resources.workExperience.employments }>
+                  { resources.workExperience.employments.map((employment, i) => (
                     <div key={ i }>
                       <h3 style={ { marginBottom: "0" } }>{ employment.company }</h3>
                       <section>
                         <small>{ resources.workExperience.format(employment) }</small>
                       </section>
                       <ul>
-                        <For each="work" index="j" of={ employment.works }>
+                        { employment.works.map((work, j) => (
                           <li key={ j }>{ work.description }</li>
-                        </For>
+                        )) }
                       </ul>
                     </div>
-                  </For>
-                  */}
+                  )) }
                 </section>
 
                 <h2 className="ui dividing header">{ resources.privateActivities.title }</h2>
                 <section>
                   <ul>
-                    {/*
-                    <For each="item" index="i" of={ resources.privateActivities.items }>
-                      <li key={ i }>{ item.description }</li>
-                      <If condition={ item.annotations !== undefined && item.annotations.length > 0 }>
-                        <ul>
-                          <For each="annotation" index="j" of={ item.annotations }>
-                            <li key={ j }>{ annotation }</li>
-                          </For>
-                        </ul>
-                      </If>
-                    </For>
-                    */}
+                    { resources.privateActivities.items.map((item, i) => (
+                      <>
+                        <li key={ i }>{ item.description }</li>
+                        {
+                          (() => {
+                            if (item.annotations !== undefined && item.annotations.length > 0) {
+                              return (
+                                <ul>
+                                  { item.annotations.map((annotation, j) => (
+                                    <li key={ j }>{ annotation }</li>
+                                  )) }
+                                </ul>
+                              )
+                            } else {
+                              return null;
+                            }
+                          })()
+                        }
+                      </>
+                    )) }
                   </ul>
                 </section>
 
                 <h2 className="ui dividing header">{ resources.skills.title }</h2>
                 <section>
                   <ul>
-                    {/*
-                    <For each="item" index="i" of={ resources.skills.items }>
+                    { resources.skills.items.map((item, i) => (
                       <li key={ i }>{ item.description }</li>
-                    </For>
-                    */}
+                    )) }
                   </ul>
                 </section>
 
                 <h2 className="ui dividing header">{ resources.qualifications.title }</h2>
                 <section>
                   <ul>
-                    {/*
-                    <For each="qualification" index="i" of={ resources.qualifications.items }>
+                    { resources.qualifications.items.map((qualification, i) => (
                       <li key={ i }>{ resources.qualifications.format(qualification) }</li>
-                    </For>
-                    */}
+                    )) }
                   </ul>
                 </section>
 
                 <h2 className="ui dividing header">{ resources.favoriteBooks.title }</h2>
                 <section>
                   <ul>
-                    {/*
-                    <For each="item" index="i" of={ resources.favoriteBooks.items }>
+                    { resources.favoriteBooks.items.map((item, i) => (
                       <li key={ i }>{ item.title }</li>
-                    </For>
-                    */}
+                    )) }
                   </ul>
                 </section>
 
@@ -149,4 +148,11 @@ export default ({ buildDate, resources, environment, age }) => {
 
     </div>
   );
+}
+
+interface Props {
+  buildDate: any;
+  resources: Resources;
+  environment: any;
+  age: any;
 }

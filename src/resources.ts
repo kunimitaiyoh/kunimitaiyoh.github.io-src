@@ -2,14 +2,16 @@
 // const work = (description, options) => ({ description, options: (options || {}) });
 // const activity = (item) => (typeof item === "string") ? { description: item } : item;
 
-export const getResources = async (lang) => {
+// export const getResources = async (lang) => {
+export async function getResources(lang: string): Promise<Resources> {
     /**
      * resolve an appropriate object about language by the given language code.
      *
      * @param {() => any} japanese supplier of an object for Japanese
      * @param {() => any} english supplier of an object for English
      */
-    const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
+    // const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
+    const resolve: <T> (ja: () => T, en: () => T) => T = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
     const { DateTimeFormatter, LocalDateTime, LocalDate } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
     const formatInstant = x => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -194,8 +196,84 @@ export const getResources = async (lang) => {
     };
 };
 
-function work(description: string): { description: string } {
+function work(description: string): Work {
     return { description }
 }
 
 const activity = (item: any) => (typeof item === "string") ? { description: item } : item;
+
+export interface Resources {
+    resolveLastUpdate: (time: string) => string;
+    email: string;
+    head: string;
+    name: string;
+    nameLatin: string;
+    birthday: string;
+    location: string;
+    company: string;
+    digest: Digest;
+    education: Education;
+    workExperience: WorkExperience;
+    privateActivities: PrivateActivities;
+    skills: Skills;
+    myAccounts: {
+        title: string;
+    };
+    qualifications: {
+        title: string;
+        items: { date: string; title: string; }[]
+        format(item: { date: string; title: string; }): string;
+    };
+    favoriteBooks: {
+        title: string;
+        items: { title: string }[];
+    };
+}
+
+interface Digest {
+    title: string;
+    text: string;
+}
+
+interface Education {
+    title: string;
+    items: EducationItem[];
+
+    format(e: EducationItem): string;
+}
+
+interface EducationItem {
+    date: string;
+    title: string;
+}
+
+interface WorkExperience {
+    title: string;
+    employments: Employment[];
+    format(employment: Employment): string;
+}
+
+interface Employment {
+    company: string;
+    type: string;
+    start: string;
+    end: string | null;
+    works: Work[];
+}
+
+interface Work {
+    description: string;
+}
+
+interface PrivateActivities {
+    title: string;
+    items: {
+        description: string;
+        annotations?: string[];
+    }[];
+}
+
+interface Skills {
+    title: string;
+    items: Work[];
+}
