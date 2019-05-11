@@ -1,6 +1,6 @@
-const hired = (company, type, start, end, works) => ({ company, type, start, end, works });
-const work = (description, options) => ({ description, options: (options || {}) });
-const activity = (item) => (typeof item === "string") ? { description: item } : item;
+// const hired = (company, type, start, end, works) => ({ company, type, start, end, works });
+// const work = (description, options) => ({ description, options: (options || {}) });
+// const activity = (item) => (typeof item === "string") ? { description: item } : item;
 
 export const getResources = async (lang) => {
     /**
@@ -193,3 +193,9 @@ export const getResources = async (lang) => {
         },
     };
 };
+
+function work(description: string): { description: string } {
+    return { description }
+}
+
+const activity = (item: any) => (typeof item === "string") ? { description: item } : item;
