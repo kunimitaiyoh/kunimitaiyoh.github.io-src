@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require("purifycss-webpack");
 const glob = require("glob-all");
 const joda = require("js-joda");
+const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 
 const isProduction = process.argv.includes("-p");
 
@@ -56,34 +57,18 @@ module.exports = (env, argv) => ({
                 loaders: "file-loader?name=[name].[ext]"
             },
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-            {
-                test: /\.jsx$/,
-                exclude: /node_modules/,
-                use: [
-                    {
-                        loader: "babel-loader",
-                        options: {
-                            presets: ["react"],
-                            plugins: [
-                                "syntax-dynamic-import",
-                                "jsx-control-statements",
-                            ]
-                        }
-                    }
-                ]
-            }
         ]
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"],
-        // plugins: [new TsconfigPathsPlugin()],
+        plugins: [new TsconfigPathsPlugin()],
     },
     plugins: [
         new webpack.DefinePlugin({
             DEFINED_BUILD_DATE: JSON.stringify(joda.Instant.now()),
         }),
         new HtmlWebpackPlugin({
-            template: "./public/index.html"
+            template: "./public/index.html",
         }),
         new ScriptExtHtmlWebpackPlugin({
             defer: [/.jsx?$/],
