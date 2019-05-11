@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import React from 'react';
-import Account from "./views/Account"
+import * as classNames from "classnames";
+import * as React from 'react';
+import { Account } from "./views/Account"
 import { BioItem } from "./views/BioItem"
 import "semantic-ui-css/semantic.min.css";
 import "./App.scss";

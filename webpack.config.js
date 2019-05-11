@@ -34,7 +34,7 @@ module.exports = (env, argv) => ({
     devtool: isProduction ? false : "source-map",
     devServer: {
         historyApiFallback: true,
-        contentBase: "dist",
+        contentBase: ["dist", "public"],
         port: 3000
     },
     module: {
