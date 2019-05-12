@@ -1,4 +1,4 @@
-import App, { AppProps } from "./App";
+import { App } from "@/App";
 import * as util from "./util";
 
 declare const DEFINED_BUILD_DATE: string;
@@ -17,6 +17,6 @@ declare const DEFINED_BUILD_DATE: string;
   const props = { buildDate, resources, environment, age };
 
   const container = document.getElementById("app");
-  const render = (props: AppProps) => ReactDOM.render(<App {...props}/>, container);
-  render(props);
+
+  ReactDOM.render(<App { ...props } />, container)
 })();
