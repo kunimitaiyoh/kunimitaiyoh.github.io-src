@@ -15,7 +15,7 @@
         "dom",
       ],
       "jsx": "react",
-      "types":  ["react", "react-dom"],
+      "types":  ["react", "react-dom", "node"],
       "paths": {
         "@/*": ["src/*"],
       },
