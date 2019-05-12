@@ -1,7 +1,6 @@
 import { App } from "@/App";
-import * as util from "./util";
-
-declare const DEFINED_BUILD_DATE: string;
+import * as util from "@/util";
+import { BUILD_DATE } from "@/config";
 
 (async function() {
   const res = await import(/* webpackChunkName: "resources" */ "./resources");
@@ -9,7 +8,7 @@ declare const DEFINED_BUILD_DATE: string;
   const React = await import(/* webpackChunkName: "react" */ "react");
   const ReactDOM = await import(/* webpackChunkName: "react-dom" */ "react-dom");
 
-  const buildDate = Instant.parse(DEFINED_BUILD_DATE);
+  const buildDate = Instant.parse(BUILD_DATE);
   const age = util.calculateAge(1990, 12, 21, new Date());
   const queryParams = util.extractQueryParams(window);
   const environment = util.getEnvironment(queryParams, window);

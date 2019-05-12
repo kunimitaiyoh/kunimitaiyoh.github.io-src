@@ -65,7 +65,7 @@ module.exports = (env, argv) => ({
     },
     plugins: [
         new webpack.DefinePlugin({
-            DEFINED_BUILD_DATE: JSON.stringify(joda.Instant.now()),
+            WEBPACK_BUILD_DATE: JSON.stringify(joda.Instant.now()),
         }),
         new HtmlWebpackPlugin({
             template: "./public/index.html",
