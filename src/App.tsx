@@ -5,15 +5,16 @@ import { BioItem } from "./views/BioItem"
 import "semantic-ui-css/semantic.min.css";
 import "./App.scss";
 import { Resources } from "./resources";
+import { Environments } from "./util";
 
-const testLang = function(lang, environment) {
+const testLang = function(lang: string, environment: Environments) {
   return lang === environment.language;
 }
 
 /**
  * @see https://github.com/AlexGilleran/jsx-control-statements
  */
-export default ({ buildDate, resources, environment, age }: Props) => {
+export default ({ buildDate, resources, environment, age }: AppProps) => {
   return (
     <div id="app" className="ui container">
       <div>{ resources.resolveLastUpdate(buildDate) }</div>
@@ -150,7 +151,7 @@ export default ({ buildDate, resources, environment, age }: Props) => {
   );
 }
 
-interface Props {
+export interface AppProps {
   buildDate: any;
   resources: Resources;
   environment: any;

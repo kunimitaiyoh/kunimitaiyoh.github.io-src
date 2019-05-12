@@ -19,9 +19,8 @@
       "paths": {
         "@/*": ["src/*"],
       },
-      "allowJs": true,
-      "removeComments": true,
-      "preserveConstEnums": true,
+      "strict": true,
+      "noUnusedLocals": true,
       "experimentalDecorators": true
     },
     "include": ["./src/**/*"],

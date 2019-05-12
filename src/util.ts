@@ -27,14 +27,11 @@ export function calculateAge(year: number, month: number, day: number, now: Date
 /**
  * extract query parameters from the window.
  */
-export function extractQueryParams(window: Window): { [key: string]: any } {
+export function extractQueryParams(window: Window): Record<string, string | undefined> {
     return window.location.search.slice(1)
-        .split('&')
-        .reduce((accumulator, item, i) => {
-            const entry = item.split('=');
-            accumulator[entry[0]] = entry[1];
-            return accumulator;
-        }, []);
+        .split("&")
+        .map(entry => entry.split("="))
+        .reduce(toDictionary(([key]) => key, ([, value]) => value), newDictionary())
 }
 
 
@@ -42,10 +39,9 @@ export function extractQueryParams(window: Window): { [key: string]: any } {
  * get the current environment for this application.
  * @see https://qiita.com/shogo82148/items/548a6c9904eb19269f8c
  *
- * @param {Map<string, any>} queryParams
  * @param {Window} window
  */
-export function getEnvironment(queryParams, window: Window): { language: string } {
+export function getEnvironment(queryParams: { [key: string]: string | undefined }, window: Window): { language: string } {
     return {
         language: queryParams['lang'] ||
             (window.navigator.languages && window.navigator.languages[0]) ||
@@ -53,4 +49,23 @@ export function getEnvironment(queryParams, window: Window): { language: string 
             (window.navigator as any).userLanguage ||
             (window.navigator as any).browserLanguage
     };
+}
+
+export interface Environments {
+    language: string
+}
+
+
+export function toDictionary<T, V>(
+    keySelector: (item: T) => string,
+    valueSelector: (item: T) => V,
+): (entries: Record<string, V | undefined>, item: T) => Record<string, V | undefined> {
+    return (entries, entry) => {
+        entries[keySelector(entry)] = valueSelector(entry);
+        return entries;
+    };
+}
+
+export function newDictionary<V>(): Record<string, V | undefined> {
+    return {};
 }
