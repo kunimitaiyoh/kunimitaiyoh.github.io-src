@@ -5,7 +5,7 @@ import { BioItem } from "@/components/BioItem"
 import "semantic-ui-css/semantic.min.css";
 import "@/views/Profile.scss";
 import { Environments } from "@/util";
-import { AppProps } from "@/App";
+import { PropsBase, AppProps } from "@/App";
 
 const testLang = function(lang: string, environment: Environments) {
   return lang === environment.language;
@@ -14,7 +14,7 @@ const testLang = function(lang: string, environment: Environments) {
 /**
  * @see https://github.com/AlexGilleran/jsx-control-statements
  */
-export default ({ buildDate, resources, environment, age }: AppProps) => {
+export default ({ buildDate, resources, environment, age, i18n }: AppProps) => {
   return (
     <div id="app" className="ui container">
       <div>{ resources.resolveLastUpdate(buildDate) }</div>
@@ -43,7 +43,7 @@ export default ({ buildDate, resources, environment, age }: AppProps) => {
                 <div className="ui list">
                   <BioItem classes="birthday cake icon" content={ resources.birthday + " (" + age + ")" } />
                   <BioItem classes="envelope icon" content={ resources.email } href={ "mailto:" + resources.email } />
-                  <BioItem classes="marker alternate icon" content={ resources.location } />
+                  <BioItem classes="marker alternate icon" content={  i18n.format() } />
                   <BioItem classes="building icon" content={ resources.company } />
                 </div>
               </div>
