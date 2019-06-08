@@ -5,7 +5,8 @@ import { BioItem } from "@/components/BioItem"
 import "semantic-ui-css/semantic.min.css";
 import "@/views/Profile.scss";
 import { Environments } from "@/util";
-import { PropsBase, AppProps } from "@/App";
+import { AppProps } from "@/App";
+import { resources as R } from "@/i18n/messages";
 
 const testLang = function(lang: string, environment: Environments) {
   return lang === environment.language;
@@ -20,7 +21,7 @@ export default ({ buildDate, resources, environment, age, i18n }: AppProps) => {
       <div>{ resources.resolveLastUpdate(buildDate) }</div>
       <div>
         <div className="ui tabular  menu">
-          <h1 className=" header">{ resources.head }</h1>
+          <h1 className=" header">{ i18n.format(R.head) }</h1>
           <div className="right menu">
             <a href="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</a>
             <a href="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</a>
@@ -43,7 +44,7 @@ export default ({ buildDate, resources, environment, age, i18n }: AppProps) => {
                 <div className="ui list">
                   <BioItem classes="birthday cake icon" content={ resources.birthday + " (" + age + ")" } />
                   <BioItem classes="envelope icon" content={ resources.email } href={ "mailto:" + resources.email } />
-                  <BioItem classes="marker alternate icon" content={  i18n.format() } />
+                  <BioItem classes="marker alternate icon" content={ i18n.format(R.location) } />
                   <BioItem classes="building icon" content={ resources.company } />
                 </div>
               </div>
