@@ -20,7 +20,6 @@
         "@/*": ["src/*"],
       },
       "strict": true,
-      "noUnusedLocals": true,
       "experimentalDecorators": true
     },
     "include": ["./src/**/*"],
