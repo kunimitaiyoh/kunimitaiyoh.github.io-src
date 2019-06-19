@@ -1,6 +1,7 @@
 import { Instant } from "js-joda";
+import { DateTimeFormatter, LocalDateTime, LocalDate } from "js-joda";
 
-export async function getResources(lang: string): Promise<Resources> {
+export function getResources(lang: string): Resources {
     /**
      * resolve an appropriate object about language by the given language code.
      *
@@ -10,7 +11,6 @@ export async function getResources(lang: string): Promise<Resources> {
     // const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
     const resolve: <T> (ja: () => T, en: () => T) => T = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
-    const { DateTimeFormatter, LocalDateTime, LocalDate } = await import(/* webpackChunkName: "js-joda" */ "js-joda");
     const formatInstant = (x: Instant) => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     const company = resolve(() => "ブレインズコンサルティング株式会社", () => "Brains Consulting Inc.");

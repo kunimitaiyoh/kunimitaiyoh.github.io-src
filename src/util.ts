@@ -27,8 +27,8 @@ export function calculateAge(year: number, month: number, day: number, now: Date
 /**
  * extract query parameters from the window.
  */
-export function extractQueryParams(window: Window): Record<string, string | undefined> {
-    return window.location.search.slice(1)
+export function extractQueryParams(search: string): Record<string, string | undefined> {
+    return search.slice(1)
         .split("&")
         .map(entry => entry.split("="))
         .reduce(toDictionary(([key]) => key, ([, value]) => value), newDictionary())

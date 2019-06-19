@@ -1,5 +1,6 @@
 import * as classNames from "classnames";
-import * as React from 'react';
+import * as React from "react";
+import { Link } from "react-router-dom";
 import { Account } from "@/components/Account"
 import { BioItem } from "@/components/BioItem"
 import "semantic-ui-css/semantic.min.css";
@@ -22,8 +23,8 @@ export default ({ buildDate, resources, environment, age }: AppProps) => {
         <div className="ui tabular  menu">
           <h1 className=" header">{ resources.head }</h1>
           <div className="right menu">
-            <a href="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</a>
-            <a href="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</a>
+            <Link to="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</Link>
+            <Link to="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</Link>
           </div>
         </div>
         <div className="ui grid">
