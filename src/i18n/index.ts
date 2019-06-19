@@ -1,11 +1,16 @@
 import { addLocaleData, IntlProvider } from "react-intl";
-
-addLocaleData([]);
+import * as en from "react-intl/locale-data/en";
+import * as ja from "react-intl/locale-data/ja";
 
 export const locales: Record<string, any> = {
     en: require("./locales/en.json"),
     ja: require("./locales/ja.json"),
 };
+
+addLocaleData([
+    ...en,
+    ...ja,
+]);
 
 export class IntlMessage {
     protected intl: ReactIntl.InjectedIntl
