@@ -1,5 +1,6 @@
-import App from "./App";
-import * as util from "./util";
+import { App } from "@/App";
+import * as util from "@/util";
+import { BUILD_DATE } from "@/config";
 
 (async function() {
   const res = await import(/* webpackChunkName: "resources" */ "./resources");
@@ -7,7 +8,7 @@ import * as util from "./util";
   const React = await import(/* webpackChunkName: "react" */ "react");
   const ReactDOM = await import(/* webpackChunkName: "react-dom" */ "react-dom");
 
-  const buildDate = Instant.parse(DEFINED_BUILD_DATE);
+  const buildDate = Instant.parse(BUILD_DATE);
   const age = util.calculateAge(1990, 12, 21, new Date());
   const queryParams = util.extractQueryParams(window);
   const environment = util.getEnvironment(queryParams, window);
@@ -15,6 +16,6 @@ import * as util from "./util";
   const props = { buildDate, resources, environment, age };
 
   const container = document.getElementById("app");
-  const render = (props) => ReactDOM.render(<App {...props}/>, container);
-  render(props);
+
+  ReactDOM.render(<App { ...props } />, container)
 })();
