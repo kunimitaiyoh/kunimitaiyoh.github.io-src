@@ -1,17 +1,19 @@
-import * as React from "react"
+import * as React from "react";
 import { BrowserRouter, Route, Switch, RouteComponentProps } from "react-router-dom";
 import Profile from "@/views/Profile";
 import { Resources } from "./resources";
 import { getEnvironment, extractQueryParams } from "./util";
+import { getResources } from "@/resources";
 
 export function App(props: PropsBase): JSX.Element {
-
   function render(component: (props: AppProps) => JSX.Element): (route: RouteComponentProps) => JSX.Element {
     return (route) => {
       const queryParams = extractQueryParams(route.location.search);
-      const env = getEnvironment(queryParams, window);
+      const environment = getEnvironment(queryParams, window);
+      const resources = getResources(environment.language);
 
-      return component({ ...props });
+      // TODO: abandon resources from App.
+      return component({ ...props, resources, environment });
     };
   }
 
@@ -26,10 +28,10 @@ export function App(props: PropsBase): JSX.Element {
 
 export interface PropsBase {
   buildDate: any;
-  resources: Resources;
-  environment: any;
   age: any;
 }
 
 export interface AppProps extends PropsBase {
+  environment: any;
+  resources: Resources;
 }
