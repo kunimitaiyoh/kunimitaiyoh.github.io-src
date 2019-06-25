@@ -1,5 +1,6 @@
 import { Instant } from "js-joda";
 import { DateTimeFormatter, LocalDateTime, LocalDate } from "js-joda";
+import { Resources, Work } from "@/resources/types";
 
 export function getResources(lang: string): Resources {
     /**
@@ -8,7 +9,6 @@ export function getResources(lang: string): Resources {
      * @param {() => any} japanese supplier of an object for Japanese
      * @param {() => any} english supplier of an object for English
      */
-    // const resolve = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
     const resolve: <T> (ja: () => T, en: () => T) => T = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
     const formatInstant = (x: Instant) => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -117,10 +117,10 @@ export function getResources(lang: string): Resources {
         privateActivities: {
             title: resolve(() => "業務外の活動", () => "Private Activities"),
             items: [
-                resolve(() => "大学院生へのオブジェクト指向プログラミングの指導", () => "Teaching object-oriented programming to a graduate student"),
-                resolve(() => "Kotlin による、Androidアプリケーションの開発", () => "Development of an Android application with Kotlin"),
-                resolve(() => "React 16, Angular 4 の学習", () => "Learning React 16 and Angular 4"),
-                resolve(() => "Django、Ansible によるウェブサイトの開発", () => "Development of a web site with Django and Ansible"),
+                { description: resolve(() => "大学院生へのオブジェクト指向プログラミングの指導", () => "Teaching object-oriented programming to a graduate student") },
+                { description: resolve(() => "Kotlin による、Androidアプリケーションの開発", () => "Development of an Android application with Kotlin") },
+                { description: resolve(() => "React 16, Angular 4 の学習", () => "Learning React 16 and Angular 4") },
+                { description: resolve(() => "Django、Ansible によるウェブサイトの開発", () => "Development of a web site with Django and Ansible") },
                 {
                     description: resolve(
                         () => "Docker によるマイクロサービスで構成されたウェブアプリケーションの開発",
@@ -134,7 +134,7 @@ export function getResources(lang: string): Resources {
                             () => "using FunSpec, Travis CI, webpack and TypeScript."),
                     ]
                 }
-            ].map(activity),
+            ],
         },
         skills: {
             title: resolve(() => "その他のスキル", () => "Other Skills"),
@@ -160,7 +160,7 @@ export function getResources(lang: string): Resources {
                 resolve(
                     () => "ウェブアプリケーションの基本的なセキュリティを理解している。",
                     () => "Understand about basic securty of web applications."),
-            ].map(item => ({ description: item })),
+            ].map(work),
         },
         myAccounts: {
             title: resolve(() => "アカウント", () => "My Accounts"),
@@ -195,82 +195,4 @@ export function getResources(lang: string): Resources {
 
 function work(description: string): Work {
     return { description }
-}
-
-const activity = (item: any) => (typeof item === "string") ? { description: item } : item;
-
-export interface Resources {
-    resolveLastUpdate: (time: Instant) => string;
-    email: string;
-    head: string;
-    name: string;
-    nameLatin: string | null;
-    birthday: string;
-    location: string;
-    company: string;
-    digest: Digest;
-    education: Education;
-    workExperience: WorkExperience;
-    privateActivities: PrivateActivities;
-    skills: Skills;
-    myAccounts: {
-        title: string;
-    };
-    qualifications: {
-        title: string;
-        items: { date: string; title: string; }[]
-        format(item: { date: string; title: string; }): string;
-    };
-    favoriteBooks: {
-        title: string;
-        items: { title: string }[];
-    };
-}
-
-interface Digest {
-    title: string;
-    text: string;
-}
-
-interface Education {
-    title: string;
-    items: EducationItem[];
-
-    format(e: EducationItem): string;
-}
-
-interface EducationItem {
-    date: string;
-    title: string;
-}
-
-interface WorkExperience {
-    title: string;
-    employments: Employment[];
-    format(employment: Employment): string;
-}
-
-interface Employment {
-    company: string;
-    type: string;
-    start: string;
-    end: string | null;
-    works: Work[];
-}
-
-interface Work {
-    description: string;
-}
-
-interface PrivateActivities {
-    title: string;
-    items: {
-        description: string;
-        annotations?: string[];
-    }[];
-}
-
-interface Skills {
-    title: string;
-    items: Work[];
 }
