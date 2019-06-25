@@ -1,7 +1,7 @@
 import * as React from "react";
 import { BrowserRouter, Route, Switch, RouteComponentProps } from "react-router-dom";
 import Profile from "@/views/Profile";
-import { Resources } from "./resources";
+import { Resources } from "@/resources/types";
 import { getEnvironment, extractQueryParams } from "./util";
 import { getResources } from "@/resources";
 
