@@ -1,6 +1,6 @@
-import { Instant } from "js-joda";
-import { DateTimeFormatter, LocalDateTime, LocalDate } from "js-joda";
+import { Instant } from "@/data/instant";
 import { Resources, Work } from "@/resources/types";
+import { zerofill } from "@/util";
 
 export function getResources(lang: string): Resources {
     /**
@@ -11,19 +11,18 @@ export function getResources(lang: string): Resources {
      */
     const resolve: <T> (ja: () => T, en: () => T) => T = (lang === "ja") ? (ja, en) => ja() : (ja, en) => en();
 
-    const formatInstant = (x: Instant) => LocalDateTime.ofInstant(x).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    const formatInstant = (value: Instant) => value.toLocalSqlFormat();
 
     const company = resolve(() => "ブレインズコンサルティング株式会社", () => "Brains Consulting Inc.");
-    const monthYear = resolve(function () {
-        const f = DateTimeFormatter.ofPattern("yyyy年MM月");
-        return (year: number, month: number) => LocalDate.of(year, month, 1).format(f);
-    }, function() {
-        const months = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        return (year: number, month: number) => `${months[month - 1]} ${year}`;
-    });
+    const monthYear = resolve(
+        () => (year: number, month: number) => `${year}年${zerofill(month, 2)}月`,
+        function() {
+            const months = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            return (year: number, month: number) => `${months[month - 1]} ${year}`;
+        });
 
     return {
         resolveLastUpdate: resolve(() => (x: Instant) => "最終更新日: " + formatInstant(x), () => (x: Instant) => "Last update: " + formatInstant(x)),

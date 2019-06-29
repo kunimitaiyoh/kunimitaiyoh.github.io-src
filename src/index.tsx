@@ -1,17 +1,14 @@
 import { App } from "@/App";
 import * as util from "@/util";
 import { BUILD_DATE } from "@/config";
+import * as React from "react";
+import { render } from "react-dom";
+import { Instant } from "@/data/instant";
 
-(async function() {
-  const { Instant } = await import(/* webpackChunkName: "js-joda" */  "js-joda");
-  const React = await import(/* webpackChunkName: "react" */ "react");
-  const ReactDOM = await import(/* webpackChunkName: "react-dom" */ "react-dom");
+const buildDate = Instant.of(BUILD_DATE);
+const age = util.calculateAge(1990, 12, 21, new Date());
+const props = { buildDate, age };
 
-  const buildDate = Instant.parse(BUILD_DATE);
-  const age = util.calculateAge(1990, 12, 21, new Date());
-  const props = { buildDate, age };
+const container = document.getElementById("app");
 
-  const container = document.getElementById("app");
-
-  ReactDOM.render(<App { ...props } />, container)
-})();
+render(<App { ...props } />, container)

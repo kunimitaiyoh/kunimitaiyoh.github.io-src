@@ -69,3 +69,14 @@ export function toDictionary<T, V>(
 export function newDictionary<V>(): Record<string, V | undefined> {
     return {};
 }
+
+export function zerofill(value: number, radix: number): string {
+    const zeros = (() => {
+        let x = "";
+        for (let i = 0; i < radix; i++) {
+            x = x + "0";
+        }
+        return x
+    })();
+    return (zeros + value).substr(-radix);
+}

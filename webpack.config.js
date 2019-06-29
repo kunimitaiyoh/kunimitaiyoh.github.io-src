@@ -6,7 +6,6 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require("purifycss-webpack");
 const glob = require("glob-all");
-const joda = require("js-joda");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
 
 const isProduction = process.argv.includes("-p");
@@ -65,7 +64,7 @@ module.exports = (env, argv) => ({
     },
     plugins: [
         new webpack.DefinePlugin({
-            WEBPACK_BUILD_DATE: JSON.stringify(joda.Instant.now()),
+            WEBPACK_BUILD_DATE: JSON.stringify(new Date().toISOString()),
         }),
         new HtmlWebpackPlugin({
             template: "./public/index.html",

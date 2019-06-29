@@ -4,6 +4,7 @@ import Profile from "@/views/Profile";
 import { Resources } from "@/resources/types";
 import { getEnvironment, extractQueryParams } from "./util";
 import { getResources } from "@/resources";
+import { Instant } from "@/data/instant";
 
 export function App(props: PropsBase): JSX.Element {
   function render(component: (props: AppProps) => JSX.Element): (route: RouteComponentProps) => JSX.Element {
@@ -27,11 +28,11 @@ export function App(props: PropsBase): JSX.Element {
 }
 
 export interface PropsBase {
-  buildDate: any;
-  age: any;
+  buildDate: Instant;
+  age: number;
 }
 
 export interface AppProps extends PropsBase {
-  environment: any;
+  environment: { language: string };
   resources: Resources;
 }
