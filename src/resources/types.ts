@@ -1,4 +1,4 @@
-import { Instant } from "js-joda";
+import { Instant } from "@/data/instant";
 
 export interface Resources {
     resolveLastUpdate: (time: Instant) => string;

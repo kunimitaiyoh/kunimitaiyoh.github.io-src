@@ -1,9 +1,11 @@
+import { zerofill } from "@/util";
+
 export class Instant {
     constructor(protected readonly value: Date) {
     }
 
     public toLocalSqlFormat(): string {
-        const f = (x: number) => ("00" + x).substr(-2);
+        const f = (x: number) => zerofill(x, 2);
         const value = this.value;
 
         const date = `${value.getFullYear()}-${f(value.getMonth() + 1)}-${f(value.getDate())}`;
