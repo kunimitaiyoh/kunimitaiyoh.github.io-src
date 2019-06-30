@@ -1,5 +1,7 @@
-import * as React from "react";
-import { BrowserRouter, Route, Switch, RouteComponentProps } from "react-router-dom";
+// import * as React from "preact";
+import { h, render } from "preact";
+import { Router, Route } from "preact-router";
+// import { BrowserRouter, Route, Switch, RouteComponentProps } from "react-router-dom";
 import Profile from "@/views/Profile";
 import { Resources } from "@/resources/types";
 import { getEnvironment, extractQueryParams } from "./util";
@@ -7,7 +9,7 @@ import { getResources } from "@/resources";
 import { Instant } from "@/data/instant";
 
 export function App(props: PropsBase): JSX.Element {
-  function render(component: (props: AppProps) => JSX.Element): (route: RouteComponentProps) => JSX.Element {
+  function renderComponent(component: (props: AppProps) => JSX.Element): (route: RouteComponentProps) => JSX.Element {
     return (route) => {
       const queryParams = extractQueryParams(route.location.search);
       const environment = getEnvironment(queryParams, window);
@@ -19,11 +21,10 @@ export function App(props: PropsBase): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" render={ render(props => <Profile { ...props } />) } ></Route>
-      </Switch>
-    </BrowserRouter>
+    <Router>
+
+      {/* <Route exact path="/" render={ render(props => <Profile { ...props } />) } ></Route> */}
+    </Router>
   );
 }
 
