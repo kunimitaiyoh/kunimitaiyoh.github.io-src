@@ -1,5 +1,5 @@
 import * as classNames from "classnames";
-import * as React from 'react';
+import { h } from "preact";
 
 export function BioItem({ classes, href, content }: Props) {
   function getContent() {
