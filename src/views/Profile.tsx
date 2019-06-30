@@ -1,6 +1,6 @@
 import * as classNames from "classnames";
 import { h } from "preact";
-import { Link } from "preact-router";
+import { Link, route } from "preact-router";
 import { Account } from "@/components/Account"
 import { BioItem } from "@/components/BioItem"
 import "semantic-ui-css/semantic.min.css";
@@ -24,8 +24,9 @@ export default (props: AppProps) => {
         <div className="ui tabular  menu">
           <h1 className=" header">{ resources.head }</h1>
           <div className="right menu">
-            <Link href="?lang=ja" activeClassName={ classNames("item", { active: testLang("ja", environment) }) }>日本語</Link>
-            <Link href="?lang=en" activeClassName={ classNames("item", { active: testLang("en", environment) }) }>English</Link>
+            {/* XXX: suspicious routing */}
+            <Link onClick={ e => route("?lang=ja") } path="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</Link>
+            <Link onClick={ e => route("?lang=en") } path="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</Link>
           </div>
         </div>
         <div className="ui grid">
@@ -86,6 +87,7 @@ export default (props: AppProps) => {
                 <section>
                   <ul>
                     { resources.privateActivities.items.map((item, i) => (
+                      // TODO: avoid div
                       <div>
                         <li key={ i }>{ item.description }</li>
                         {

@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { Router, Route } from "preact-router";
+import { Router, Route, RouterOnChangeArgs } from "preact-router";
 import Profile from "@/views/Profile";
 import { Resources } from "@/resources/types";
 import { Instant } from "@/data/instant";
