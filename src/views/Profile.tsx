@@ -87,9 +87,8 @@ export default (props: AppProps) => {
                 <section>
                   <ul>
                     { resources.privateActivities.items.map((item, i) => (
-                      // TODO: avoid div
-                      <div>
-                        <li key={ i }>{ item.description }</li>
+                      <li key={ i }>
+                        <span>{ item.description }</span>
                         {
                           (() => {
                             if (item.annotations !== undefined && item.annotations.length > 0) {
@@ -105,7 +104,7 @@ export default (props: AppProps) => {
                             }
                           })()
                         }
-                      </div>
+                      </li>
                     )) }
                   </ul>
                 </section>
