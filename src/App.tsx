@@ -1,16 +1,15 @@
-import * as React from "react";
-import { BrowserRouter, Route, Switch, RouteComponentProps } from "react-router-dom";
+import { h } from "preact";
+import { Router, Route, RouterOnChangeArgs } from "preact-router";
 import Profile from "@/views/Profile";
 import { Resources } from "@/resources/types";
-import { getEnvironment, extractQueryParams } from "./util";
-import { getResources } from "@/resources";
 import { Instant } from "@/data/instant";
+import { getResources } from "@/resources";
+import { getEnvironment } from "@/util";
 
-export function App(props: PropsBase): JSX.Element {
-  function render(component: (props: AppProps) => JSX.Element): (route: RouteComponentProps) => JSX.Element {
+export function App(props: PropsBase) {
+  function renderComponent(component: (props: AppProps) => JSX.Element): (route: { matches: Record<string, string | undefined> }) => JSX.Element {
     return (route) => {
-      const queryParams = extractQueryParams(route.location.search);
-      const environment = getEnvironment(queryParams, window);
+      const environment = getEnvironment(route.matches, window);
       const resources = getResources(environment.language);
 
       // TODO: abandon resources from App.
@@ -19,11 +18,9 @@ export function App(props: PropsBase): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" render={ render(props => <Profile { ...props } />) } ></Route>
-      </Switch>
-    </BrowserRouter>
+    <Router>
+      <Route path="/" component={ renderComponent(props => <Profile { ...props } />) } />
+    </Router>
   );
 }
 

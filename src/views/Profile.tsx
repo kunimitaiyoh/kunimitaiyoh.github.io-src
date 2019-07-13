@@ -1,6 +1,6 @@
 import * as classNames from "classnames";
-import * as React from "react";
-import { Link } from "react-router-dom";
+import { h } from "preact";
+import { Link, route } from "preact-router";
 import { Account } from "@/components/Account"
 import { BioItem } from "@/components/BioItem"
 import "semantic-ui-css/semantic.min.css";
@@ -15,7 +15,8 @@ const testLang = function(lang: string, environment: Environments) {
 /**
  * @see https://github.com/AlexGilleran/jsx-control-statements
  */
-export default ({ buildDate, resources, environment, age }: AppProps) => {
+export default (props: AppProps) => {
+  const { buildDate, resources, environment, age } = props;
   return (
     <div id="app" className="ui container">
       <div>{ resources.resolveLastUpdate(buildDate) }</div>
@@ -23,13 +24,13 @@ export default ({ buildDate, resources, environment, age }: AppProps) => {
         <div className="ui tabular  menu">
           <h1 className=" header">{ resources.head }</h1>
           <div className="right menu">
-            <Link to="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</Link>
-            <Link to="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</Link>
+            {/* XXX: suspicious routing */}
+            <Link onClick={ e => route("?lang=ja") } path="?lang=ja" className={ classNames("item", { active: testLang("ja", environment) }) }>日本語</Link>
+            <Link onClick={ e => route("?lang=en") } path="?lang=en" className={ classNames("item", { active: testLang("en", environment) }) }>English</Link>
           </div>
         </div>
         <div className="ui grid">
           <div className="row">
-
             <div className="four wide column">
               <div className="ui items">
                 <div className="image">
@@ -86,8 +87,8 @@ export default ({ buildDate, resources, environment, age }: AppProps) => {
                 <section>
                   <ul>
                     { resources.privateActivities.items.map((item, i) => (
-                      <>
-                        <li key={ i }>{ item.description }</li>
+                      <li key={ i }>
+                        <span>{ item.description }</span>
                         {
                           (() => {
                             if (item.annotations !== undefined && item.annotations.length > 0) {
@@ -103,7 +104,7 @@ export default ({ buildDate, resources, environment, age }: AppProps) => {
                             }
                           })()
                         }
-                      </>
+                      </li>
                     )) }
                   </ul>
                 </section>

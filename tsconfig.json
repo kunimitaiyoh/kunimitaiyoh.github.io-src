@@ -15,7 +15,8 @@
         "dom",
       ],
       "jsx": "react",
-      "types":  ["react", "react-dom"],
+      "jsxFactory": "h",
+      "types":  ["preact"],
       "paths": {
         "@/*": ["src/*"],
       },
