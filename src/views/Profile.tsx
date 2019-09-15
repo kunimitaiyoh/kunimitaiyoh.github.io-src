@@ -98,7 +98,7 @@ export default (props: AppProps) => {
                                     <li key={ j }>{ annotation }</li>
                                   )) }
                                 </ul>
-                              )
+                              );
                             } else {
                               return null;
                             }
@@ -111,11 +111,23 @@ export default (props: AppProps) => {
 
                 <h2 className="ui dividing header">{ resources.skills.title }</h2>
                 <section>
-                  <ul>
-                    { resources.skills.items.map((item, i) => (
-                      <li key={ i }>{ item.description }</li>
+                  <table>
+                    { resources.skills.groups.map((group, i) => (
+                      <tr key={ i }>
+                        <th>{ group.name }</th>
+                        <td>{ group.content }</td>
+                      </tr>
                     )) }
-                  </ul>
+                  </table>
+
+                  <h3>{ resources.skills.others.title }</h3>
+                  <section>
+                    <ul>
+                      { resources.skills.others.items.map((item, i) => (
+                        <li key={ i }>{ item }</li>
+                      )) }
+                    </ul>
+                  </section>
                 </section>
 
                 <h2 className="ui dividing header">{ resources.qualifications.title }</h2>
@@ -141,7 +153,6 @@ export default (props: AppProps) => {
                   <Account classes="github" href="https://github.com/kunimitaiyoh" title="GitHub" />
                   <Account classes="twitter" href="https://github.com/kunimitaiyoh" title="Twitter" />
                   <Account classes="linkedin" href="https://www.linkedin.com/in/kunimitaiyoh/" title="LinkedIn" />
-                  <Account classes="user" href="https://www.wantedly.com/users/69028785" title="Wantedly" />
                 </section>
               </div>
             </div>

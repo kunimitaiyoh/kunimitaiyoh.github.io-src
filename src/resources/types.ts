@@ -56,6 +56,7 @@ export interface Employment {
     type: string;
     start: string;
     end: string | null;
+    description?: string;
     works: Work[];
 }
 
@@ -75,7 +76,14 @@ export interface PrivateActivity {
 
 export interface Skills {
     title: string;
+    groups: SkillGroup[];
+    others: {
+        title: string;
+        items: string[];
+    };
+}
 
-    // TODO: use other type.
-    items: Work[];
+export interface SkillGroup {
+    name: string;
+    content: string;
 }
