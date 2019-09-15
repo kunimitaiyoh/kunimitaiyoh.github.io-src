@@ -121,7 +121,7 @@ export default (props: AppProps) => {
                     )) }
                   </table>
 
-                  <h3>{ resources.skills.others.title }</h3>
+                  <h3 style="margin-top: 1rem">{ resources.skills.others.title }</h3>
                   <section>
                     <ul>
                       { resources.skills.others.items.map((item, i) => (
@@ -152,7 +152,7 @@ export default (props: AppProps) => {
                 <h2 className="ui dividing header">{ resources.myAccounts.title }</h2>
                 <section className="ui list">
                   <Account classes="github" href="https://github.com/kunimitaiyoh" title="GitHub" />
-                  <Account classes="twitter" href="https://github.com/kunimitaiyoh" title="Twitter" />
+                  <Account classes="twitter" href="https://twitter.com/kunimitaiyoh" title="Twitter" />
                   <Account classes="linkedin" href="https://www.linkedin.com/in/kunimitaiyoh/" title="LinkedIn" />
                 </section>
               </div>
