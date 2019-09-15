@@ -38,7 +38,7 @@ export default (props: AppProps) => {
                 </div>
                 <div className="item">
                   <div className="content">
-                    <a className="header">{ resources.name }</a>
+                    <a className="header" href={ "mailto:" + resources.email }>{ resources.name }</a>
                     <div className="meta">{ resources.nameLatin }</div>
                   </div>
                 </div>
@@ -71,9 +71,10 @@ export default (props: AppProps) => {
                   { resources.workExperience.employments.map((employment, i) => (
                     <div key={ i }>
                       <h3 style={ { marginBottom: "0" } }>{ employment.company }</h3>
-                      <section>
+                      <section class="period">
                         <small>{ resources.workExperience.format(employment) }</small>
                       </section>
+                      { employment.description ? <p>{ employment.description }</p> : null }
                       <ul>
                         { employment.works.map((work, j) => (
                           <li key={ j }>{ work.description }</li>

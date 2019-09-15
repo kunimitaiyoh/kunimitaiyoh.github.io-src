@@ -60,7 +60,7 @@ export function getResources(lang: string): Resources {
                     end: null,
                     description: resolve(
                         () => "SaaS 型チャットボットのための各サービスの設計・開発・保守・運用を行なっています。",
-                        () => "",
+                        () => "Design, development, maintenance and operation of services for chatbot on SaaS",
                     ),
                     works: [
                         work(resolve(
