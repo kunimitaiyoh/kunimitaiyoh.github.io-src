@@ -7,6 +7,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require("purifycss-webpack");
 const glob = require("glob-all");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isProduction = process.argv.includes("-p");
 
@@ -66,6 +67,11 @@ module.exports = (env, argv) => ({
         new webpack.DefinePlugin({
             WEBPACK_BUILD_DATE: JSON.stringify(new Date().toISOString()),
         }),
+        new CopyWebpackPlugin([
+            {
+                from: path.resolve(__dirname, "public"),
+            },
+        ]),
         new HtmlWebpackPlugin({
             template: "./public/index.html",
         }),

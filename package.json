@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/classnames": "^2.2.3",
     "awesome-typescript-loader": "^5.2.1",
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^2.1.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.11",
