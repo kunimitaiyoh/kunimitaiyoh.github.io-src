@@ -84,7 +84,7 @@ module.exports = (env, argv) => ({
             minimize: true,
             paths: glob.sync([
                 path.join(__dirname, 'public/**/*.html'),
-                path.join(__dirname, 'src/**/*.jsx'),
+                path.join(__dirname, 'src/**/*.tsx'),
             ]),
             purifyOptions: {
                 minify: true,
