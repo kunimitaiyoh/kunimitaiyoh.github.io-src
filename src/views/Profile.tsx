@@ -38,7 +38,7 @@ export default (props: AppProps) => {
                 </div>
                 <div className="item">
                   <div className="content">
-                    <a className="header">{ resources.name }</a>
+                    <a className="header" href={ "mailto:" + resources.email }>{ resources.name }</a>
                     <div className="meta">{ resources.nameLatin }</div>
                   </div>
                 </div>
@@ -71,9 +71,10 @@ export default (props: AppProps) => {
                   { resources.workExperience.employments.map((employment, i) => (
                     <div key={ i }>
                       <h3 style={ { marginBottom: "0" } }>{ employment.company }</h3>
-                      <section>
+                      <section class="period">
                         <small>{ resources.workExperience.format(employment) }</small>
                       </section>
+                      { employment.description ? <p>{ employment.description }</p> : null }
                       <ul>
                         { employment.works.map((work, j) => (
                           <li key={ j }>{ work.description }</li>
@@ -98,7 +99,7 @@ export default (props: AppProps) => {
                                     <li key={ j }>{ annotation }</li>
                                   )) }
                                 </ul>
-                              )
+                              );
                             } else {
                               return null;
                             }
@@ -111,11 +112,23 @@ export default (props: AppProps) => {
 
                 <h2 className="ui dividing header">{ resources.skills.title }</h2>
                 <section>
-                  <ul>
-                    { resources.skills.items.map((item, i) => (
-                      <li key={ i }>{ item.description }</li>
+                  <table>
+                    { resources.skills.groups.map((group, i) => (
+                      <tr key={ i }>
+                        <th>{ group.name }</th>
+                        <td>{ group.content }</td>
+                      </tr>
                     )) }
-                  </ul>
+                  </table>
+
+                  <h3 style="margin-top: 1rem">{ resources.skills.others.title }</h3>
+                  <section>
+                    <ul>
+                      { resources.skills.others.items.map((item, i) => (
+                        <li key={ i }>{ item }</li>
+                      )) }
+                    </ul>
+                  </section>
                 </section>
 
                 <h2 className="ui dividing header">{ resources.qualifications.title }</h2>
@@ -139,9 +152,8 @@ export default (props: AppProps) => {
                 <h2 className="ui dividing header">{ resources.myAccounts.title }</h2>
                 <section className="ui list">
                   <Account classes="github" href="https://github.com/kunimitaiyoh" title="GitHub" />
-                  <Account classes="twitter" href="https://github.com/kunimitaiyoh" title="Twitter" />
+                  <Account classes="twitter" href="https://twitter.com/kunimitaiyoh" title="Twitter" />
                   <Account classes="linkedin" href="https://www.linkedin.com/in/kunimitaiyoh/" title="LinkedIn" />
-                  <Account classes="user" href="https://www.wantedly.com/users/69028785" title="Wantedly" />
                 </section>
               </div>
             </div>
