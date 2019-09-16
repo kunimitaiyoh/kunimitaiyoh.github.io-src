@@ -6,15 +6,12 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const PurifyCSSPlugin = require("purifycss-webpack");
 const glob = require("glob-all");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
+const joda = require("js-joda");
 
 const isProduction = process.argv.includes("-p");
 
 module.exports = (env, argv) => ({
     mode: isProduction ? "development" : "production",
-    entry: {
-        main: [path.resolve(__dirname, "src/index.tsx")]
-    },
     output: {
         filename: "bundle.[name].js",
         path: path.resolve(__dirname, "dist"),
@@ -34,40 +31,53 @@ module.exports = (env, argv) => ({
     devtool: isProduction ? false : "source-map",
     devServer: {
         historyApiFallback: true,
-        contentBase: ["dist", "public"],
+        contentBase: "dist",
         port: 3000
     },
     module: {
-        rules: [
-            {
-                test: /\.html$/,
-                exclude: /node_modules/,
-                loader: "html-loader"
-            },
-            {
-                test: /\.s?css$/,
-                loader: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader",
-                }),
-            },
-            {
-                test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
-                loaders: "file-loader?name=[name].[ext]"
-            },
-            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-        ]
+        rules: [{
+            test: /\.html$/,
+            exclude: /node_modules/,
+            loader: "html-loader"
+        },
+        {
+            test: /\.s?css$/,
+            loader: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                use: "css-loader",
+            }),
+        },
+        {
+            test: /\.(jpe?g|png|svg|ttf|woff|woff2|eot)$/,
+            loaders: "file-loader?name=[name].[ext]"
+        },
+        {
+            test: /\.jsx$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: "babel-loader",
+                options: {
+                    presets: ["react"],
+                    plugins: [
+                        "syntax-dynamic-import",
+                        "jsx-control-statements",
+                    ]
+                }
+            }]
+        }]
     },
     resolve: {
-        extensions: [".ts", ".tsx", ".js", ".json"],
-        plugins: [new TsconfigPathsPlugin()],
+        alias: {
+            "@": path.resolve(__dirname, "src")
+        },
+        extensions: [".js", ".jsx"]
     },
     plugins: [
         new webpack.DefinePlugin({
-            WEBPACK_BUILD_DATE: JSON.stringify(new Date().toISOString()),
+            DEFINED_BUILD_DATE: JSON.stringify(joda.Instant.now()),
         }),
         new HtmlWebpackPlugin({
-            template: "./public/index.html",
+            template: "./public/index.html"
         }),
         new ScriptExtHtmlWebpackPlugin({
             defer: [/.jsx?$/],
